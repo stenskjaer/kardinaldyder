@@ -27,7 +27,7 @@ Lemmata
 Fem forskellige, men forbundne lemma-lister.
 
 Listerne er baseret på _LSJ_ og kompileret af TLG-softwaren _Diogenes_. 
-Filen =beta_lemmata.txt= er tilgængelig på [SourceForge](http://sourceforge.net/projects/diogenes/files/diogenes/3.1.6/)
+Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.net/projects/diogenes/files/diogenes/3.1.6/)
  (diogenes-expert-data-3.1.6.tar.bz2) 
 
 `original_lemmata.txt` er `beta_lemmata.txt` konverteret til unicode med værktøjet [BetaCodeConverter](http://www.lucius-hartmann.ch/programme/bcconver.php) til Mac OS X. 
@@ -49,9 +49,9 @@ En lille samling af forskellige amatørskripts anvendt til tekstmanipulation og 
 Der er simple, rodede og uskønne skripts som virkelig kunne trænge til en gennemarbejdning.
 De vigtigste i undersøgelserne er:
 
-- compile_corpus.php :: Samler filer for en angiven forfatter i specificeret mappe og samler alle korpusfiler med et trecifret nummer inden .txt-suffikset til én fil. Det erstatter også alle gravis-accenter med acut'er og transponerer hele filen til minuskler for at optimere de statistiske resultater og foretager mindre oprydning i teksten (fjerner linjeskift og overflødige mellemrum)
+- compile_corpus.php: Samler filer for en angiven forfatter i specificeret mappe og samler alle korpusfiler med et trecifret nummer inden .txt-suffikset til én fil. Det erstatter også alle gravis-accenter med acut'er og transponerer hele filen til minuskler for at optimere de statistiske resultater og foretager mindre oprydning i teksten (fjerner linjeskift og overflødige mellemrum)
 Konvertering af TLG-filer fra beta kode til unicode er udført med [tlgu](http://tlgu.carmen.gr/tlgu.1.html).
-- str_pos.php :: Beregner placeringen af eftersøgte begreber og generer det output der benyttes til at lave dispersionstabeller i LaTeX. Beregner også blandt andet standard afvigelse som indgår i undersøgelserne.
+- str_pos.php: Beregner placeringen af eftersøgte begreber og generer det output der benyttes til at lave dispersionstabeller i LaTeX. Beregner også blandt andet standard afvigelse som indgår i undersøgelserne.
 
 De øvrige filer er temmeligt rodede og indgår ikke længere aktivt i arbejdet. Der er blandet andet funktioner til at fjerne accenter fra polytonisk græsk og forskellige forsøg på at konvertere beta kode til unicode (uden meget held). 
  
