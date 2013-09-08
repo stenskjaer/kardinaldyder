@@ -1,9 +1,3 @@
-korpus
-======
-
-Data og værktøjer anvendt i mine undersøgelser af kardinaldyderne.
-
-
 Korpus
 ======
 
