@@ -25,6 +25,7 @@ Lemmata
 -------
 
 Fem forskellige, men forbundne lemma-lister.
+GitHub til ikke hoste så store filer, så de kan findes på dette link til min [Dropbox](https://www.dropbox.com/sh/lu6tfp5ec5w1sn9/d3t1IbGeIc)
 
 Listerne er baseret på _LSJ_ og kompileret af TLG-softwaren _Diogenes_. 
 Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.net/projects/diogenes/files/diogenes/3.1.6/)
