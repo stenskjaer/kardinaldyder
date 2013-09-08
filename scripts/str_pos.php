@@ -23,7 +23,7 @@ $granularity = 4;
 
 
 
-// DON'T GO DOWN ON ME!!
+// No adjustments below this point.
 $filename = $author ."/".$author."-total.txt";
 $dir = '/Users/Michael/Dropbox/Filologi/Workspace/Projects/kardinaldyderne/ordstudier/Corpora/'.$filename;
 $string = file_get_contents($dir);
