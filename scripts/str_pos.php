@@ -4,8 +4,9 @@ ini_set('memory_limit', '128M');
 
 
 
-$author = "isokrates-2";
-$corpus_dir = "../../private-korpus/Corpora/";
+$author = "plato";
+$corpus_dir = "../../private-korpus/Corpora";
+$corpus_subdir = "plato/selection";
 
 
 $terms = array(" ευσεβ");
@@ -21,10 +22,22 @@ $granularity = 4;
 
 
 
-// No adjustments below this point.
-$filename = $author .DIRECTORY_SEPARATOR.$author."-total.txt";
-$dir = $corpus_dir.DIRECTORY_SEPARATOR.$filename;
-$string = file_get_contents($dir);
+/* SCRIPT START
+ * No adjustments below this point. */
+
+// Set dir
+if ($corpus_subdir) {
+    $filename = $corpus_dir .DIRECTORY_SEPARATOR. $corpus_subdir .DIRECTORY_SEPARATOR. $author ."-total.txt";
+} else {
+    $filename = $corpus_dir .DIRECTORY_SEPARATOR. $author .DIRECTORY_SEPARATOR. $author ."-total.txt";
+}
+
+if (file_exists($filename)) {
+    $string = file_get_contents($filename);
+} else {
+    print "$filename does not exist";
+    die(1);
+}
 $strlen = mb_strlen($string);
 $bar_top = $bar_bot + 0.5;
 $dia_bot = "0";
