@@ -4,17 +4,24 @@
  */
 header('Content-Type: text/html;charset=UTF-8');
 
-// Input author
-$author = 'theognis';
+// Input author and dir
+$corpus_dir = '../../private-korpus/Corpora';
+$corpus_subdir = 'plato/selection';
+$author = 'plato';
 
 // Set dir
-$dir = '/Users/Michael/Dropbox/Filologi/Workspace/Projects/kardinaldyderne/ordstudier/Corpora' .DIRECTORY_SEPARATOR. $author .DIRECTORY_SEPARATOR;
+if ($corpus_subdir) {
+    $dir = $corpus_dir.DIRECTORY_SEPARATOR.$corpus_subdir;
+} else {
+    $dir = $corpus_dir.DIRECTORY_SEPARATOR.$author;
+}
+
 
 // Set new file name
-$new_file = $dir . $author .'-corpus.txt';
+$new_file = $dir .DIRECTORY_SEPARATOR. $author .'-corpus.txt';
 
 // Count files in folder
-$works = count(glob($dir . "/*"));
+$works = count(scandir($dir));
 
 // In case counting starts from > 1, input highest number (dårlig løsning)
 //$works = 6;
