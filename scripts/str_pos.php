@@ -4,10 +4,8 @@ ini_set('memory_limit', '128M');
 
 
 
-
-
-
 $author = "isokrates-2";
+$corpus_dir = "../../private-korpus/Corpora/";
 
 
 $terms = array(" ευσεβ");
@@ -24,8 +22,8 @@ $granularity = 4;
 
 
 // No adjustments below this point.
-$filename = $author ."/".$author."-total.txt";
-$dir = '/Users/Michael/Dropbox/Filologi/Workspace/Projects/kardinaldyderne/ordstudier/Corpora/'.$filename;
+$filename = $author .DIRECTORY_SEPARATOR.$author."-total.txt";
+$dir = $corpus_dir.DIRECTORY_SEPARATOR.$filename;
 $string = file_get_contents($dir);
 $strlen = mb_strlen($string);
 $bar_top = $bar_bot + 0.5;
