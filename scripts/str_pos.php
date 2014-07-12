@@ -6,11 +6,11 @@ ini_set('memory_limit', '128M');
 
 $author = "plato";
 $corpus_dir = "../../private-korpus/Corpora";
-$corpus_subdir = "plato/selection";
+$corpus_subdir = "plato/minor";
 
 
 $terms = array(" ευσεβ");
-$exceptions = array("");
+$exceptions = array();
 $bar_bot = "3";
 
 
@@ -27,16 +27,14 @@ $granularity = 4;
 
 // Set dir
 if ($corpus_subdir) {
-    $filename = $corpus_dir .DIRECTORY_SEPARATOR. $corpus_subdir .DIRECTORY_SEPARATOR. $author ."-total.txt";
+    $filename = $corpus_dir .DIRECTORY_SEPARATOR. $corpus_subdir .DIRECTORY_SEPARATOR. $author ."-corpus-stripped.txt";
 } else {
-    $filename = $corpus_dir .DIRECTORY_SEPARATOR. $author .DIRECTORY_SEPARATOR. $author ."-total.txt";
+    $filename = $corpus_dir .DIRECTORY_SEPARATOR. $author .DIRECTORY_SEPARATOR. $author ."-corpus-stripped.txt";
 }
 
 if (file_exists($filename)) {
-    $string = file_get_contents($filename);
-} else {
-    print "$filename does not exist";
-    die(1);
+     $string = file_get_contents($filename);
+} else { print "$filename does not exist"; die(1);
 }
 $strlen = mb_strlen($string);
 $bar_top = $bar_bot + 0.5;
@@ -177,48 +175,62 @@ $word_count = array_sum($book_word_count);
 
 
 
-
 /*
-// DP measurement
-for($i=0; $i < count($bookarray); $i++) {
-	$exp_freq[] = $book_word_count[$i] / $word_count; 		// Expected frequencies pr. book (= rel_booklen)
-	$obs_freq[] = $bookfreq[$i] / count($results); 		// Observed frequencies pr. book (= rel_bookfreq)
-//	$bookfreq_relation[] = ($rel_bookfreq[$i] / $rel_booklen[$i]) * 100 - 100;		
-	$abs_difference[] = abs($obs_freq[$i]-$exp_freq[$i]);
-}
-$DP_val = round(array_sum($abs_difference)/2, 3);
+** 	Calculations:
+** 	$word_count (int): Word-count.
+** 	$expected_distance (int): Mean = expected observation if evenly distributed. $strlen / $count
+** 	$obs_dist (array): All observed distances in characters.
+** 	$obs_mean (int): Mean of all observed distances. sum($obs_dist) / $count
+**  $variance: Variance from mean. (∑(X-μ)^2) / N: 
+** 	$std_dev (int): Standard deviation from mean. sqrt($variance)
+** 	$var_coef (int): Variation coefficient. $std_dev / $obs_mean
+** 	$avg_dev (int): Average absolute deviation normalized over mean of observations. ∑|X-μ| / N div. m. μ
+**
 */
 
 
-
-/*
-** 	Standard deviation of population, $std_dev (int).
-**	Normalized standard deviation, $norm_std_dev (int).
+/* Create array with all observed distances.
+ * A distance = characters between occurrence n and n+1 and distance
+ * from last occuren to end of string. 
+ * Total count = count of distances.
 */
-
-$count = count($abspos);
-for($i=0; $i < $count; $i++) {
-	if($i == 0) {
-		$obs_dist[$i] = $abspos[0];
-	} else {
-		$obs_dist[$i] = $abspos[$i] - $abspos[$i-1];
-	}
+foreach($abspos as $pos_key => $position) {
+    if($pos_key == 0) {
+        $obs_dist[$pos_key] = $abspos[$pos_key];
+    }
+    $obs_dist[$pos_key] = $abspos[$pos_key] - $abspos[$pos_key-1];
 }
-$obs_dist[] = $strlen - end($abspos);			// Loading obs_dist from last position to text end
-$dist_mean = array_sum($obs_dist) / $count;
-for($i=0; $i<count($obs_dist);$i++) {
-	$obs_minus_mean[] = pow($obs_dist[$i] - $dist_mean, 2);
-	$abs_mean_deviations[] = abs($obs_dist[$i] - $dist_mean);
+/* Go to end of array and add distance to end */
+end($positions);
+end($abspos);
+$obs_dist[] = ($strlen) - $positions[current($abspos)]['end'];         // Subtract strlen from last array-key to get
+                                                           // distance from last observation to string end
+/* Sum count of all distances */
+$count = count($obs_dist);
+
+
+$obs_mean = array_sum($obs_dist) / $count;         // Mean of distance
+$expected_distance = $strlen / $count;             // Expected value
+
+foreach ($obs_dist as $observation) {
+	$obs_minus_mean[] = pow($observation - $expected_distance, 2); // Needed for variance
+	$abs_mean_deviations[] = abs($observation - $expected_distance); // Needed for average dev.
 }
 
-$variance = (array_sum($obs_minus_mean)/count($obs_minus_mean));
+$variance = (array_sum($obs_minus_mean)/ $count);
 $std_dev = sqrt($variance);
-$norm_std_dev = sqrt($variance) / $dist_mean;
-$var_coef = $std_dev / $dist_mean;
-$avg_dev = ((array_sum($abs_mean_deviations) / count($abs_mean_deviations)) / $dist_mean) / 2;
+$var_coef = $std_dev / $obs_mean;
+
+foreach ($abs_mean_deviations as $value) {
+    $norm_mean_deviation[] = $value / $std_dev;
+}
+$avg_dev = ((array_sum($abs_mean_deviations) / $count) / $obs_mean);
 
 
-// Write page
+/*
+** WRITE PAGE
+** 
+*/
 print "<pre>";
 foreach($terms as $search) {
 $found = strpos_recursive($string, $search);
@@ -243,10 +255,11 @@ foreach($results as $v) {
 print "\n\n";
 print '<table cellpadding="2" border="1">';
 print "<tr><td>Word count: </td><td>$word_count</td></tr>";
-print "<tr><td>Dist Mean: </td><td>$dist_mean</td></tr>";
-print "<tr><td>Std.dev: </td><td>".round($std_dev,8)."</td></tr>";
+print "<tr><td>Dist Mean: </td><td>$obs_mean</td></tr>";
+print "<tr><td>Std.dev: </td><td>".round($std_dev,2)."</td></tr>";
+print "<tr><td>Variance: </td><td>".round($variance,2)."</td></tr>";
 print "<tr><td>Var. coef.: </td><td>".round($var_coef,2)."</td></tr>";
-print "<tr><td>Average deviation: </td><td>".round($avg_dev,4)."</td></tr>";
+print "<tr><td>Average deviation: </td><td>".round($avg_dev,2)."</td></tr>";
 
 print '</table>';
 
