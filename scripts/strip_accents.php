@@ -2,7 +2,7 @@
 
 $author = "plato";
 $corpus_dir = "../../private-korpus/Corpora";
-$corpus_subdir = "plato/selection";
+$corpus_subdir = "plato/republic";
 
 // Set dir
 if ($corpus_subdir) {

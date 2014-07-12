@@ -6,7 +6,7 @@ header('Content-Type: text/html;charset=UTF-8');
 
 // Input author and dir
 $corpus_dir = '../../private-korpus/Corpora';
-$corpus_subdir = 'plato/selection';
+$corpus_subdir = 'plato/republic';
 $author = 'plato';
 
 // Set dir
