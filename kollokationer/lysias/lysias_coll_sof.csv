@@ -1,8 +1,8 @@
-Collocation,2013-09-07
-KeyWord,σοφ
-Instances,3
-Files,2
-Word,Keyword,Log-Likelihood,LR Total,Left Total,Right Total,L5,L4,L3,L2,L1,Key,R1,R2,R3,R4,R5,""
+Collocation,2013-09-07,,,,,,,,,,,,,,,,
+KeyWord,σοφ,,,,,,,,,,,,,,,,
+Instances,3,,,,,,,,,,,,,,,,
+Files,2,,,,,,,,,,,,,,,,
+Word,Keyword,Log-Likelihood,LR Total,Left Total,Right Total,L5,L4,L3,L2,L1,Key,R1,R2,R3,R4,R5,
 καί,σοφ,25.6318156782072,4,3,1,0,1,0,0,2,0,1,0,0,0,0,"σοφίας-καί (2), σοφωτάτους-καί (2)"
 ὁμιλία,σοφ,17.5795684847981,1,1,0,0,1,0,0,0,0,0,0,0,0,0,σοφωτάτους-ὁμιλίαν (1)
 μεταγιγνώσκω,σοφ,17.5795684847981,1,0,1,0,0,0,0,0,0,0,0,1,0,0,σοφωτάτους-μεταγιγνώσκειν (1)

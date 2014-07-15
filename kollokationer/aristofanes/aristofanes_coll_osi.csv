@@ -1,8 +1,8 @@
-Collocation,2013-09-07
-KeyWord,οσι
-Instances,8
-Files,1
-Word,Keyword,Log-Likelihood,LR Total,Left Total,Right Total,L5,L4,L3,L2,L1,Key,R1,R2,R3,R4,R5,""
+Collocation,2013-09-07,,,,,,,,,,,,,,,,
+KeyWord,οσι,,,,,,,,,,,,,,,,
+Instances,8,,,,,,,,,,,,,,,,
+Files,1,,,,,,,,,,,,,,,,
+Word,Keyword,Log-Likelihood,LR Total,Left Total,Right Total,L5,L4,L3,L2,L1,Key,R1,R2,R3,R4,R5,
 δικαι,οσι,19.9294069777243,2,2,0,0,0,1,1,0,0,0,0,0,0,0,"ὅσια-δικαίως (1), ὅσιος-δίκαιος (1)"
 θιασώτης,οσι,19.1696360204369,1,0,1,0,0,0,0,0,0,0,1,0,0,0,ὁσίους-θιασώτας (1)
 λύσσα,οσι,19.1696360204369,1,0,1,0,0,0,0,0,0,0,0,0,0,1,ὅσια-λύσσῃ (1)

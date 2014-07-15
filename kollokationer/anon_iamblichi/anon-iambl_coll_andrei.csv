@@ -1,8 +1,8 @@
-Collocation,2013-09-07
-KeyWord,ανδρει
-Instances,2
-Files,1
-Word,Keyword,Log-Likelihood,LR Total,Left Total,Right Total,L5,L4,L3,L2,L1,Key,R1,R2,R3,R4,R5,""
+Collocation,2013-09-07,,,,,,,,,,,,,,,,
+KeyWord,ανδρει,,,,,,,,,,,,,,,,
+Instances,2,,,,,,,,,,,,,,,,
+Files,1,,,,,,,,,,,,,,,,
+Word,Keyword,Log-Likelihood,LR Total,Left Total,Right Total,L5,L4,L3,L2,L1,Key,R1,R2,R3,R4,R5,
 ἐάν,ανδρει,42.7628711718717,4,2,2,1,0,0,1,0,0,1,0,0,1,0,ἀνδρείαν-ἐάν (4)
 ἤ,ανδρει,29.6032260835127,3,3,0,1,0,1,0,1,0,0,0,0,0,0,ἀνδρείους-ἤ (3)
 τε,ανδρει,29.306533020841,4,2,2,0,1,0,0,1,0,0,1,0,0,1,ἀνδρείαν-τε (4)
