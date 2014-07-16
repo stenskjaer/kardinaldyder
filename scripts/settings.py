@@ -1,11 +1,15 @@
+# -*- coding: utf-8 -*-
+
+
 # author: Author name
 # corpus_dir: Directory containing correctly formatted corpora
 # corpus_subdir: Optional subdir used in stead of author as corpus dir
 # filename_addon: Ending of corpus filename
-author = ""
-corpus_dir = ""
+author = "theognis"
+corpus_dir = "../../kardinaldyderne/private-korpus/Corpora"
 corpus_subdir = ""
-filename_addon = ""
+filename_prefix = ""
+filename_addon = "-corpus-stripped.txt"
 
 
 # terms: Søgetermer, liste. Formatteret: [' ανδρει',' ηνορε',' αδροτ',' ανδρειοτ']
