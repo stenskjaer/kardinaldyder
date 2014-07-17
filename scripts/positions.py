@@ -43,7 +43,7 @@ def open_file(filename=False):
     # Return the string
     return s
 
-def position_words(needle, haystack):
+def position_words(needles, haystack):
     """
     Position search terms in list with nested list of begin and end of word.
     
@@ -52,6 +52,20 @@ def position_words(needle, haystack):
     haystack -- string to be searched
 
     """
+    results = []
+    for needle in needles:
+        matches = recursive_search(needle, haystack)
+        for match in matches:
+            word = match.group(0)
+            results.append([
+                match.start(),                                      
+                match.start() + len(word),
+                word.encode('utf-8')
+            ]) 
+
+
+    return results
+
 
     matches = re.finditer(re.escape(needle), haystack, re.UNICODE)
     positions = []
