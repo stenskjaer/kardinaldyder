@@ -53,13 +53,13 @@ def position_words(needle, haystack):
 
     """
 
-    matches = re.finditer(needle, haystack, re.UNICODE)
+    matches = re.finditer(re.escape(needle), haystack, re.UNICODE)
     positions = []
     for match in matches:
         positions.append([match.start(), match.end()])
 
     return positions
-    
+
 def main():
     """ Main function
 
