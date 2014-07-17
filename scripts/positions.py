@@ -119,16 +119,13 @@ def main():
     # Load terms and exceptions into list, decoded
     tokens = tokenize_string(settings.terms)
     exceptions = tokenize_string(settings.exceptions)
-    
+
     positions = position_words(tokens, open_file(args.file))
     exceptions = position_words(exceptions, open_file(args.file)) 
-
-    print exceptions
 
     # Need to make list of exceptions too.
     positions = remove_exceptions(positions, exceptions)
 
-    print positions
 
 if __name__ == "__main__":
     main()
