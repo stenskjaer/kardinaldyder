@@ -91,6 +91,14 @@ def remove_exceptions(positions, exceptions):
     
     return [position for position in positions if position not in exceptions]
 
+def tokenize_string(string):
+    """ Converts comma separated string to list. Decoded to utf-8.
+    Keyword Arguments:
+    string -- input string with tokens separated by commas
+    """
+
+    return [word.decode('utf-8') for word in string.split(',')]
+
 def main():
     """ Main function
 
@@ -108,13 +116,9 @@ def main():
                         default=False)
     args = parser.parse_args()
 
-    terms = settings.terms.split(',')
-    unicode_terms = [i.decode('UTF-8') for i in terms]
-    print terms
-        
-    for term in unicode_terms:
-        print position_words(term, open_file(args.file))
-        
+    # Load terms and exceptions into list, decoded
+    tokens = tokenize_string(settings.terms)
+    exceptions = tokenize_string(settings.exceptions)
 
 
 if __name__ == "__main__":
