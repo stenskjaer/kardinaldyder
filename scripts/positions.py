@@ -116,12 +116,14 @@ def main():
                         default=False)
     args = parser.parse_args()
 
+    string = open_file(args.file)
+
     # Load terms and exceptions into list, decoded
     tokens = tokenize_string(settings.terms)
     exceptions = tokenize_string(settings.exceptions)
 
-    positions = position_words(tokens, open_file(args.file))
-    exceptions = position_words(exceptions, open_file(args.file)) 
+    positions = position_words(tokens, string)
+    exceptions = position_words(exceptions, string 
 
     # Need to make list of exceptions too.
     positions = remove_exceptions(positions, exceptions)
