@@ -79,8 +79,17 @@ def recursive_search(needle, haystack):
     return results
 
 
+def remove_exceptions(positions, exceptions):
+    """
+    Find all duplicate positions between exceptions and positions and
+    pop from exceptions.
 
-    return positions
+    Keyword Arguments:
+    positions  -- list of positions of search terms
+    exceptions -- list of positions of exceptions to be removed
+    """
+    
+    return [position for position in positions if position not in exceptions]
 
 def main():
     """ Main function
