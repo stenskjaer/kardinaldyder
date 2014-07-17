@@ -99,6 +99,16 @@ def tokenize_string(string):
 
     return [word.decode('utf-8') for word in string.split(',')]
 
+def book_separators(string):
+    """ Split the string into list with position of each book start.
+    Keyword Arguments:
+    string -- input string
+    """
+    
+    pattern = "(\[[0-9]{1,2}\]\s\{.*?\})"
+    matches = recursive_search(pattern, string)
+    print [match.start() for match in matches ]
+
 def main():
     """ Main function
 
