@@ -53,9 +53,7 @@ def position_words(needle, haystack):
 
     """
 
-    print needle.encode('utf-8')
-    pattern = re.compile(needle, re.UNICODE)
-    matches = re.finditer(pattern, haystack)
+    matches = re.finditer(needle, haystack, re.UNICODE)
     positions = []
     for match in matches:
         positions.append([match.start(), match.end()])
