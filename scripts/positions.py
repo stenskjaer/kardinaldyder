@@ -18,12 +18,14 @@ def open_file(filename=False):
     filename_addon	= settings.filename_addon
     filename_prefix	= settings.filename_prefix if settings.filename_prefix else author # If filename_prefix is not set, use author
     
+    # If filename is not set from command line parameters, use settings
     if not filename:
         if settings.corpus_subdir:
             filename = os.path.join(corpus_dir, corpus_subdir, author, filename_prefix+filename_addon)
         else:
             filename = os.path.join(corpus_dir, author, filename_prefix+filename_addon)
 
+    # Try opening the file
     try:
         f = open(filename)
         s = f.read()
