@@ -66,11 +66,19 @@ def position_words(needles, haystack):
 
     return results
 
+def recursive_search(needle, haystack):
+    """ Perform recursive search of items from list. Returns list of positions.
+    Keyword Arguments:
+    needle   -- 
+    haystack -- 
+    """
 
-    matches = re.finditer(re.escape(needle), haystack, re.UNICODE)
-    positions = []
-    for match in matches:
-        positions.append([match.start(), match.end()])
+    pattern = re.compile(needle + '\w+', re.UNICODE)                # Use needle and rest until first non-word char
+    results = re.finditer(pattern, haystack)                        # Regex iteration on string
+
+    return results
+
+
 
     return positions
 
