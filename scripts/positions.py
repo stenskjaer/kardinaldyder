@@ -2,7 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import settings
-import os, sys
+import os
+import sys
+import argparse
+import string
+import re
+
 
 def open_file(filename=False):
     """
