@@ -54,7 +54,7 @@ def position_words(needles, haystack):
     """
     results = []
     for needle in needles:
-        matches = recursive_search(needle, haystack)
+        matches = recursive_search(needle + '\w+', haystack)
         for match in matches:
             word = match.group(0)
             results.append([
@@ -73,7 +73,7 @@ def recursive_search(needle, haystack):
     haystack -- 
     """
 
-    pattern = re.compile(needle + '\w+', re.UNICODE)                # Use needle and rest until first non-word char
+    pattern = re.compile(needle, re.UNICODE)                        # Use needle and rest until first non-word char
     results = re.finditer(pattern, haystack)                        # Regex iteration on string
 
     return results
