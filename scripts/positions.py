@@ -45,6 +45,17 @@ def main():
     Initiate argument parser
     """
 
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description='Position occurences of search word in file and produce latex output. Default settings in settings.py-file')
+    parser.add_argument('file', nargs='?',
+                        help='Optional. The file to be parsed. If none is given, the settings-file is used.')
+    parser.add_argument('--compilation', '-c',
+                        help='Compile the produced .tex-files? Boolean. Default = False',
+                        action='store_true',
+                        default=False)
+    args = parser.parse_args()
+
 
     
     open_file()
