@@ -41,8 +41,26 @@ def open_file(filename=False):
 
     s = s.decode('utf-8')
     # Return the string
-
     return s
+
+def position_words(needle, haystack):
+    """
+    Position search terms in list with nested list of begin and end of word.
+    
+    Keyword Arguments:
+    needle   -- search term
+    haystack -- string to be searched
+
+    """
+
+    print needle.encode('utf-8')
+    pattern = re.compile(needle, re.UNICODE)
+    matches = re.finditer(pattern, haystack)
+    positions = []
+    for match in matches:
+        positions.append([match.start(), match.end()])
+
+    return positions
     
 def main():
     """ Main function
@@ -61,10 +79,14 @@ def main():
                         default=False)
     args = parser.parse_args()
 
+    terms = settings.terms.split(',')
+    unicode_terms = [i.decode('UTF-8') for i in terms]
+    print terms
+        
+    for term in unicode_terms:
+        print position_words(term, open_file(args.file))
+        
 
-    
-    open_file()
-    
 
 if __name__ == "__main__":
     main()
