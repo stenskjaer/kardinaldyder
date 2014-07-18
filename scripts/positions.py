@@ -8,6 +8,7 @@ import argparse
 import string
 import re
 import codecs
+import math
 
 
 def open_file(filename=False):
@@ -129,8 +130,49 @@ def calculations(string):
     string -- The content string
     """
 
+
+    # word_count
     pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
     word_count = len(re.findall(pattern, string))
+    print(word_count)
+
+    # Load terms and exceptions into list, decoded
+    tokens = tokenize_string(settings.terms)
+    exceptions = tokenize_string(settings.exceptions)
+
+    # Absolute positions
+    positions = remove_exceptions(
+        position_words(tokens, string),
+        position_words(exceptions, string))
+
+    # List of observed distances between occurences
+    observed_distances = []
+    for i, val in enumerate(positions):
+        if i is 0:
+            observed_distances.append(val[0])
+        else:
+            observed_distances.append(val[0] - positions[i-1][0])
+    observed_distances.append(len(string) - positions[-1][0])
+    
+    # Count of relevant occurences (counting instances of distance)
+    count = len(observed_distances)
+    
+    # Mean (= expected distance)
+    expected_distance = len(string) / count
+
+    # Observation mean: The mean of alle observed distances. sum(obs_dist) / count
+    # Needed for variance and variation coefficient
+    observation_mean = sum(observed_distances) / count
+
+    # Variance
+    obs_minus_mean = [pow(observation - expected_distance, 2) for observation in observed_distances]
+    variance = sum(obs_minus_mean) / count 
+
+    # Standard deviation
+    standard_deviation = math.sqrt(variance)
+
+    # Variation coefficient (normalized standard deviation)
+    var_coefficient = standard_deviation / observation_mean
 
 
 def main():
@@ -151,15 +193,6 @@ def main():
     args = parser.parse_args()
 
     string = open_file(args.file)
-
-    # Load terms and exceptions into list, decoded
-    tokens = tokenize_string(settings.terms)
-    exceptions = tokenize_string(settings.exceptions)
-
-    # Get absolute positions
-    positions = remove_exceptions(
-        position_words(tokens, string),
-        position_words(exceptions, string))
 
     book_separations = book_separators(string)
 
