@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from __future__ import division
 import settings
@@ -7,6 +7,7 @@ import sys
 import argparse
 import string
 import re
+import codecs
 
 
 def open_file(filename=False):
@@ -32,16 +33,16 @@ def open_file(filename=False):
 
     # Try opening the file
     try:
-        f = open(filename)
+        f = codecs.open(filename, 'rb','utf8')
         s = f.read()
-    except IOError as e:
-        print "I/O error ({0}): {1}".format(e.errno, e.strerror)
+    except IOError:
+        print('cannot open', arg)
     except:
-        print "Unexpected error:", sys.exc_info()[0]
-
-    s = s.decode('utf-8')
-    # Return the string
-    return s
+        print("Unexpected error:", sys.exc_info()[0])
+    else:
+        print(filename, 'has', len(s), 'chars')
+        f.close()
+        return(s)
 
 def position_words(needles, haystack):
     """
@@ -96,7 +97,7 @@ def tokenize_string(string):
     string -- input string with tokens separated by commas
     """
 
-    return [word.decode('utf-8') for word in string.split(',')]
+    return [word for word in string.split(',')]
 
 def book_separators(string):
     """ Recursive search for book starts and return list of tuples
