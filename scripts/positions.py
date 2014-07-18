@@ -100,14 +100,19 @@ def tokenize_string(string):
     return [word.decode('utf-8') for word in string.split(',')]
 
 def book_separators(string):
-    """ Split the string into list with position of each book start.
+    """ Recursive search for book starts and return list of tuples
+    containing start position and content of result. 
+
     Keyword Arguments:
     string -- input string
+
     """
     
     pattern = "(\[[0-9]{1,2}\]\s\{.*?\})"
     matches = recursive_search(pattern, string)
-    print [match.start() for match in matches ]
+    return [(match.start(), match.group()) for match in matches]
+
+
 def relative_positions(positions, width, string_length, granularity=4):
     """ Create list with positions relative to diagram size and granularity
     Keyword Arguments:
