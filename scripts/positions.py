@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+from __future__ import division
 import settings
 import os
 import sys
@@ -108,6 +108,15 @@ def book_separators(string):
     pattern = "(\[[0-9]{1,2}\]\s\{.*?\})"
     matches = recursive_search(pattern, string)
     print [match.start() for match in matches ]
+def relative_positions(positions, width, string_length, granularity=4):
+    """ Create list with positions relative to diagram size and granularity
+    Keyword Arguments:
+    positions   -- result of position_words, list of absolute positions
+    width       -- width-factor of relative size
+    granularity -- (default 4). Detail level of relative locations
+    """
+
+    print [round(position[0] / string_length * width, granularity) for position in positions]
 
 def main():
     """ Main function
