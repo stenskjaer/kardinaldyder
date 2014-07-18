@@ -65,7 +65,7 @@ def position_words(needles, haystack):
                 word.encode('utf-8')       # the word
             ]) 
 
-    return results
+    return sorted(results, key=lambda group: group[0]) 
 
 def recursive_search(needle, haystack):
     """ Perform recursive search of items from list. Returns list of positions.
