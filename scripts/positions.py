@@ -175,6 +175,15 @@ def calculations(string):
     # Variation coefficient (normalized standard deviation)
     var_coefficient = standard_deviation / observation_mean
 
+    results = {
+        'Word count' : word_count,
+        'Mean (expected distance)' : expected_distance,
+        'Standard deviation' : standard_deviation,
+        'Variation coefficient' : var_coefficient
+    }
+
+    print(results)
+
 def main():
     """ Main function
 
