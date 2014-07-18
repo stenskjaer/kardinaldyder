@@ -58,11 +58,10 @@ def position_words(needles, haystack):
         for match in matches:
             word = match.group(0)
             results.append([
-                match.start(),                                      
-                match.start() + len(word),
-                word.encode('utf-8')
+                match.start(),             # word start
+                match.start() + len(word), # word end 
+                word.encode('utf-8')       # the word
             ]) 
-
 
     return results
 
