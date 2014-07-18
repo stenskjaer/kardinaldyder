@@ -154,10 +154,10 @@ def calculations(string):
         else:
             observed_distances.append(val[0] - positions[i-1][0])
     observed_distances.append(len(string) - positions[-1][0])
-    
+
     # Count of relevant occurences (counting instances of distance)
     count = len(observed_distances)
-    
+
     # Mean (= expected distance)
     expected_distance = len(string) / count
 
@@ -174,7 +174,6 @@ def calculations(string):
 
     # Variation coefficient (normalized standard deviation)
     var_coefficient = standard_deviation / observation_mean
-
 
 def main():
     """ Main function
