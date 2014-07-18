@@ -56,13 +56,14 @@ def position_words(needles, haystack):
     """
     results = []
     for needle in needles:
-        matches = recursive_search(needle + '\w+', haystack)
+        pattern = r'[^\]](\b%s\w+)' % needle.strip() # exclude ] + (boundary, needle until end of word)
+        matches = recursive_search(pattern, haystack)
         for match in matches:
-            word = match.group(0)
+            word = match.group(1)          # exclude leading space with group(1)
             results.append([
                 match.start(),             # word start
                 match.start() + len(word), # word end 
-                word.encode('utf-8')       # the word
+                word                       # the word
             ]) 
 
     return sorted(results, key=lambda group: group[0]) 
