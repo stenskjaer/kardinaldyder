@@ -186,10 +186,27 @@ def main():
         description='Position occurences of search word in file and produce latex output. Default settings in settings.py-file')
     parser.add_argument('file', nargs='?',
                         help='Optional. The file to be parsed. If none is given, the settings-file is used.')
-    parser.add_argument('--compilation', '-c',
-                        help='Compile the produced .tex-files? Boolean. Default = False',
+    parser.add_argument('--stats', '-s',
+                        help='Calculate and output statistics.',
                         action='store_true',
                         default=False)
+    parser.add_argument('--plot', '-p',
+                        help='Output scatter plot bar with vertical bars.',
+                        action='store_true',
+                        default=False)
+    parser.add_argument('--diagram', '-d',
+                        help='Output whole diagram grid and surrounding table.',
+                        action='store_true',
+                        default=False)
+    parser.add_argument('--passages', '-a',
+                        help='Output passages with context.',
+                        action='store_true',
+                        default=False)
+    parser.add_argument('--full', '-f',
+                        help='Enable all features in output',
+                        action='store_true',
+                        default=False)
+    
     args = parser.parse_args()
 
     string = open_file(args.file)
