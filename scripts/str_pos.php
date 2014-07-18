@@ -4,14 +4,14 @@ ini_set('memory_limit', '128M');
 
 
 
-$author = "plato";
-$corpus_dir = "../../private-korpus/Corpora";
-$corpus_subdir = "plato/minor";
+$author = "aischylos";
+$corpus_dir = "../../kardinaldyderne/private-korpus/Corpora";
+$corpus_subdir = "";
 
 
 $terms = array(" ευσεβ");
-$exceptions = array();
-$bar_bot = "3";
+$exceptions = array( );
+$bar_bot = "2.5";
 
 
 
@@ -232,8 +232,9 @@ $avg_dev = ((array_sum($abs_mean_deviations) / $count) / $obs_mean);
 ** 
 */
 print "<pre>";
+print_r($positions);
 foreach($terms as $search) {
-$found = strpos_recursive($string, $search);
+    $found = strpos_recursive($string, $search);
 
 	if($found) {
 		print "Found " .substr_count($string, $search). " occurences of ".$search." in the file ".$filename."\n";
