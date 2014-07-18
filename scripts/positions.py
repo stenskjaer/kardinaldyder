@@ -181,8 +181,24 @@ def calculations(string):
         'Standard deviation' : standard_deviation,
         'Variation coefficient' : var_coefficient
     }
+    
+    return results
 
-    print(results)
+def render_output(string):
+    """ Render output with Jinja2
+    
+    """
+    
+    from jinja2 import Environment, FileSystemLoader
+
+    env = Environment(loader=FileSystemLoader('templates'))
+    tex_template = env.get_template('test.tex')
+    output_from_parsed_template = tex_template.render(stat_list=calculations(string))
+    print(output_from_parsed_template)
+
+    # save
+    with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
+        f.write(output_from_parsed_template)
 
 def main():
     """ Main function
@@ -223,6 +239,8 @@ def main():
     book_separations = book_separators(string)
 
     calculations(string)
+
+    render_output(string)
 
 if __name__ == "__main__":
     main()
