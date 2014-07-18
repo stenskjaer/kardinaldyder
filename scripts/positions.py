@@ -135,7 +135,6 @@ def calculations(string):
     # word_count
     pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
     word_count = len(re.findall(pattern, string))
-    print(word_count)
 
     # Load terms and exceptions into list, decoded
     tokens = tokenize_string(settings.terms)
