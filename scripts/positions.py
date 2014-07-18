@@ -113,14 +113,29 @@ def book_separators(string):
 
 
 def relative_positions(positions, width, string_length, granularity=4):
-    """ Create list with positions relative to diagram size and granularity
+    """ Create list with positions relative to diagram size and granularity. Used in output rendition.
     Keyword Arguments:
     positions   -- result of position_words, list of absolute positions
     width       -- width-factor of relative size
     granularity -- (default 4). Detail level of relative locations
     """
 
-    print [round(position[0] / string_length * width, granularity) for position in positions]
+    return [round(position[0] / string_length * width, granularity) for position in positions]
+
+def calculations(string):
+    """ Perform statistical calculations on contant. Return dictionary of keys and values.
+    Keyword Arguments:
+    string -- The content string
+    """
+
+    word_count = sum(1 for word in string.split())
+    print word_count
+    pattern = re.compile(r'\w+', re.UNICODE)
+    word_count = re.findall(pattern, string)
+    print len(word_count)
+    for word in word_count:
+        print word.encode('utf-8')
+    
 
 def main():
     """ Main function
@@ -150,9 +165,9 @@ def main():
         position_words(tokens, string),
         position_words(exceptions, string))
 
-    # Need to make list of exceptions too.
-    positions = remove_exceptions(positions, exceptions)
+    book_separations = book_separators(string)
 
+    calculations(string)
 
 if __name__ == "__main__":
     main()
