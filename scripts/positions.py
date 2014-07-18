@@ -129,14 +129,9 @@ def calculations(string):
     string -- The content string
     """
 
-    word_count = sum(1 for word in string.split())
-    print word_count
-    pattern = re.compile(r'\w+', re.UNICODE)
-    word_count = re.findall(pattern, string)
-    print len(word_count)
-    for word in word_count:
-        print word.encode('utf-8')
-    
+    pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
+    word_count = len(re.findall(pattern, string))
+
 
 def main():
     """ Main function
