@@ -141,8 +141,10 @@ def main():
     tokens = tokenize_string(settings.terms)
     exceptions = tokenize_string(settings.exceptions)
 
-    positions = position_words(tokens, string)
-    exceptions = position_words(exceptions, string 
+    # Get absolute positions
+    positions = remove_exceptions(
+        position_words(tokens, string),
+        position_words(exceptions, string))
 
     # Need to make list of exceptions too.
     positions = remove_exceptions(positions, exceptions)
