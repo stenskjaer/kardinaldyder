@@ -69,13 +69,35 @@ def position_words(needles, haystack):
     return sorted(results, key=lambda group: group[0]) 
 
 def create_occurrence_lists(terms, exceptions, string):
-    """
+    """ Take lists of occurrences and exceptions as strings and search
+    the string. Remove exceptions and nest lists according to search term. 
+
     Keyword Arguments:
-    terms      -- 
-    exceptions -- 
-    string     -- 
+    terms      -- List containing strings of search terms
+    exceptions -- List containing strings of exceptions
+    string     -- The string to be searched.
     """
-    
+
+    occurrences = []
+    for terms, exceptions in zip(terms, exceptions):
+        # Tokenize the strings
+        needles = tokenize_string(terms)
+        exception_list = tokenize_string(exceptions)
+        print('Tokenized needles: {}'.format(needles))
+        print('Tokenized exceptions: {}'.format(exception_list))
+
+        # Position words and exceptions
+        needle_positions = position_words(needles, string)
+        exception_positions = position_words(exception_list, string)
+        print('Needle positions: {}'.format(needle_positions))
+        print('Exception positions: {}'.format(exception_positions))
+
+        # Remove the exceptions and put into list
+        occurrences.append(remove_exceptions(needle_positions,
+                                             exception_positions))
+
+    print('List of occurrences: {}'.format(occurrences))
+    return occurrences
 
 def recursive_search(needle, haystack):
     """ Perform recursive search of items from list. Returns list of positions.
