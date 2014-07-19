@@ -44,7 +44,6 @@ granularity = 4
 
 # Diagram settings
 diagram_variables = {
-    'test': 'hello world!',
     'heavyrulewidth'	: "line width=0.08em",
     'lightrulewidth'	: "line width=0.05em",
     'outer_limit_left'	: -1.5,
