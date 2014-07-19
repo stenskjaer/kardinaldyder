@@ -15,8 +15,19 @@ filename_addon = "-corpus-stripped.txt"
 # terms: Søgetermer, liste. Formatteret: [' ανδρει',' ηνορε',' αδροτ',' ανδρειοτ']
 # exceptions: Søgetermer som skal udelukkes. Formatteres som søgetermer.
 # bar_baseline: Koordinat for diagramlinjens grundlinje.
-terms = " φρον, φρο\[ν"
-exceptions = " φρονημ, φροντισα,  φροντιζ, φροντισ{ε"
+terms = [
+    ["φρον-",
+     "φρον, φρο\[ν",
+     "φρονημ, φροντισα,  φροντιζ, φροντισ\{ε"],
+    ["σοφ-",
+     "σοφ, †σοφ",
+     "σοφοκλ", " σοφιστ", " σοφιζ", " σοφισμ"],
+]
+exceptions = [
+    [" φρονημ, φροντισα,  φροντιζ, φροντισ{ε"],
+    [" σοφοκλ", " σοφιστ", " σοφιζ", " σοφισμ"],
+]
+
 bar_baseline = 0
 
 # freq_factor: Frekvensfaktor anvendt i statistiske beregninger
