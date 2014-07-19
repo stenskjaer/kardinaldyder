@@ -9,8 +9,8 @@ $corpus_dir = "../../kardinaldyderne/private-korpus/Corpora";
 $corpus_subdir = "";
 
 
-$terms = array(" ευσεβ");
-$exceptions = array( );
+$terms = array(" οσι");
+$exceptions = array( " οσιρι");
 $bar_bot = "2.5";
 
 
@@ -232,7 +232,14 @@ $avg_dev = ((array_sum($abs_mean_deviations) / $count) / $obs_mean);
 ** 
 */
 print "<pre>";
-print_r($positions);
+
+print "Diagnostics: ";
+print "<br>strlen: " . $strlen;
+print "<br>expected: " . $expected_distance;
+print "<br>count: " . $count;
+print_r($obs_dist);
+print "<br><br>";
+
 foreach($terms as $search) {
     $found = strpos_recursive($string, $search);
 
