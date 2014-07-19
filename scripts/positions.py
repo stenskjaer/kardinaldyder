@@ -170,16 +170,6 @@ def calculations(string):
     # word_count
     pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
     word_count = len(re.findall(pattern, string))
-
-    # Load terms and exceptions into list, decoded
-    tokens = tokenize_string(settings.terms)
-    exceptions = tokenize_string(settings.exceptions)
-
-    # Absolute positions
-    positions = remove_exceptions(
-        position_words(tokens, string),
-        position_words(exceptions, string))
-
     # List of observed distances between occurences
     observed_distances = []
     for i, val in enumerate(positions):
