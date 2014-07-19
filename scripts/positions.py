@@ -160,24 +160,25 @@ def relative_positions(positions, width, string_length, granularity=4):
 
     return [round(position[0] / string_length * width, granularity) for position in positions]
 
-def calculations(string):
+def calculations(occurrences, string):
     """ Perform statistical calculations on contant. Return dictionary of keys and values.
     Keyword Arguments:
     string -- The content string
     """
-
-
     # word_count
     pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
     word_count = len(re.findall(pattern, string))
+    
     # List of observed distances between occurences
     observed_distances = []
-    for i, val in enumerate(positions):
+    for i, val in enumerate(occurrences):
         if i is 0:
             observed_distances.append(val[0])
+            log.debug('Occurrence {0} distance: '.format(i))
         else:
-            observed_distances.append(val[0] - positions[i-1][0])
-    observed_distances.append(len(string) - positions[-1][0])
+            observed_distances.append(val[0] - occurrences[i-1][0])
+            log.debug('Occurrence {0} distance: '.format(i))
+    observed_distances.append(len(string) - occurrences[-1][0])
 
     # Count of relevant occurences (counting instances of distance)
     count = len(observed_distances)
@@ -275,14 +276,17 @@ def main():
                         action='store_true',
                         default=False)
 
-    
+
     args = parser.parse_args()
 
     string = open_file(args.file)
 
     names, terms, exceptions = separate_terms(settings.terms)
 
-    create_occurrence_lists(terms, exceptions, string)
+    occurences = create_occurrence_lists(terms, exceptions, string)
+
+    calculations(occurences, string)
+
     
 if __name__ == "__main__":
     main()
