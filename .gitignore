@@ -74,4 +74,4 @@ tramp
 *.rel
 
 # AUCTeX auto folder
-/auto/
+*/auto/
