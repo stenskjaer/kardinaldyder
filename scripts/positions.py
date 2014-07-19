@@ -221,7 +221,7 @@ def separate_terms(terms):
 
     return names, tokens, exceptions
 
-def render_outer_tex(diagram):
+def render__tex(diagram):
     """ Render diagram grid in tex format.
     
     """
