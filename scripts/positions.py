@@ -247,15 +247,7 @@ def render__tex(diagram):
     # with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
     #     f.write(output_from_parsed_template)
 
-def calculate_occurrences(occurrences, string):
-    """ Parse the (possibly nested) list of occurrences
-    Keyword Arguments:
-    occurences -- output of the occurences function
-    string     -- 
-    """
 
-    for occurrence_list in occurrences:
-        print(calculations(occurrence_list, string))
 
 def main():
     """ Main function
