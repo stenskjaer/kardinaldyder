@@ -183,21 +183,28 @@ def calculations(string):
     
     return results
 
-def render_output(string):
-    """ Render output with Jinja2
+def render_tex(diagram):
+    """ Render diagram grid in tex format.
     
     """
     
     from jinja2 import Environment, FileSystemLoader
 
-    env = Environment(loader=FileSystemLoader('templates'))
-    tex_template = env.get_template('test.tex')
-    output_from_parsed_template = tex_template.render(stat_list=calculations(string))
-    print(output_from_parsed_template)
+    env = Environment(
+        loader=FileSystemLoader('templates'),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+    template = env.get_template('diagram.tex')
+    
+    output = template.render(
+        diagram=diagram
+    )
+    print(output)
 
     # save
-    with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
-        f.write(output_from_parsed_template)
+    # with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
+    #     f.write(output_from_parsed_template)
 
 def main():
     """ Main function
@@ -239,7 +246,7 @@ def main():
 
     calculations(string)
 
-    render_output(string)
+    render_outer_tex(settings.diagram_variables)
 
 if __name__ == "__main__":
     main()

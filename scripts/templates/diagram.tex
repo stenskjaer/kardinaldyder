@@ -1,0 +1,30 @@
+\begin{table}[htbp]
+  \centering
+  \begin{adjustbox}{width=\linewidth}
+    \begin{tikzpicture}
+
+      % Grid
+      \draw[{{ diagram.heavyrulewidth }}]( {{diagram.outer_limit_left }}, {{ diagram.outer_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.outer_limit_top }}); 	% Top border
+      \draw[{{ diagram.heavyrulewidth }}]( {{diagram.outer_limit_left }}, {{ diagram.outer_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.outer_limit_bottom}}); 	% Bottom border
+      \draw[very thin, color=gray]( {{diagram.inner_limit_left}}, {{ diagram.innter_limit_bottom }}) -- ({{ diagram.inner_limit_left }}, {{ diagram.inner_limit_top }}); 		% Left vertical border
+      \draw[{{ diagram.lightrulewidth }}]({{ diagram.outer_limit_left}}, {{ diagram.inner_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.inner_limit_top }}); 	% Mid-top border
+      \draw[very thin,color=gray]({{ diagram.inner_limit_right}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.inner_limit_right }}, {{ diagram.inner_limit_top }}); 		% Right vertical borderr
+      \draw[very thin,color=gray]({{ diagram.outer_limit_left}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.inner_limit_bottom }}); 	% Mid-bottom border
+      {% for index in range(diagram.bars) %}
+      \draw[very thin,color=gray]({{ diagram.outer_limit_left }}, {{ index/2 }}) -- ({{ diagram.outer_limit_right }}, {{ index/2 }});	% {{ index }}. horizontal line
+      {% endfor %}
+
+      % Headers
+      \draw ({{ diagram.inner_limit_left }}, {{ diagram.header_baseline }}) node[left,color=black] {Lemma};
+      \draw ({{ diagram.inner_limit_left }}, {{ diagram.header_baseline }}) node[right,color=black] {Fordeling};
+      \draw ({{ diagram.outer_limit_right}}, {{ diagram.header_baseline }}) node[left,color=black] {$\sigma_{norm}$};
+
+    \end{tikzpicture}
+  \end{adjustbox}
+  \caption{Diagram over søgetermernes fordeling hos Aischylos.}
+  \label{fig:fordeling:aischylos}
+\end{table}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "."
+%%% End: 
