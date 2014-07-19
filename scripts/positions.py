@@ -68,6 +68,15 @@ def position_words(needles, haystack):
 
     return sorted(results, key=lambda group: group[0]) 
 
+def create_occurrence_lists(terms, exceptions, string):
+    """
+    Keyword Arguments:
+    terms      -- 
+    exceptions -- 
+    string     -- 
+    """
+    
+
 def recursive_search(needle, haystack):
     """ Perform recursive search of items from list. Returns list of positions.
     Keyword Arguments:
@@ -241,12 +250,6 @@ def main():
     args = parser.parse_args()
 
     string = open_file(args.file)
-
-    book_separations = book_separators(string)
-
-    calculations(string)
-
-    render_outer_tex(settings.diagram_variables)
 
 if __name__ == "__main__":
     main()
