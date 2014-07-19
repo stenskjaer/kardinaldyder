@@ -192,6 +192,18 @@ def calculations(string):
     
     return results
 
+def separate_terms(terms):
+    """ Sort names, terms and exceptions into separate lists
+    Keyword Arguments:
+    terms -- content of settings.terms correctly formatted.
+    """
+
+    names = [term[0] for term in terms]
+    tokens = [term[1] for term in terms]
+    exceptions = [term[2] for term in terms]
+
+    return names, tokens, exceptions
+
 def render_outer_tex(diagram):
     """ Render diagram grid in tex format.
     
@@ -246,10 +258,15 @@ def main():
                         help='Enable all features in output',
                         action='store_true',
                         default=False)
+
     
     args = parser.parse_args()
 
     string = open_file(args.file)
 
+    names, terms, exceptions = separate_terms(settings.terms)
+
+    create_occurrence_lists(terms, exceptions, string)
+    
 if __name__ == "__main__":
     main()
