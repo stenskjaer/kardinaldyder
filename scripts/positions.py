@@ -41,7 +41,7 @@ def open_file(filename=False):
     except:
         print("Unexpected error:", sys.exc_info()[0])
     else:
-        print(filename, 'has', len(s), 'chars')
+        print('Read %s' % filename)
         f.close()
         return(s)
 
