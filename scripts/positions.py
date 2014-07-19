@@ -183,7 +183,7 @@ def calculations(string):
     
     return results
 
-def render_tex(diagram):
+def render_outer_tex(diagram):
     """ Render diagram grid in tex format.
     
     """
