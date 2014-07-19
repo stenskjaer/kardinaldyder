@@ -115,7 +115,6 @@ def recursive_search(needle, haystack):
 
     return results
 
-
 def remove_exceptions(positions, exceptions):
     """
     Find all duplicate positions between exceptions and positions and
@@ -149,14 +148,18 @@ def book_separators(string):
     matches = recursive_search(pattern, string)
     return [(match.start(), match.group()) for match in matches]
 
-
-def relative_positions(positions, width, string_length, granularity=4):
+def relative_positions(positions):
     """ Create list with positions relative to diagram size and granularity. Used in output rendition.
     Keyword Arguments:
     positions   -- result of position_words, list of absolute positions
     width       -- width-factor of relative size
     granularity -- (default 4). Detail level of relative locations
     """
+
+    # Set vars
+    string_length = settings.string_length
+    width	= settings.width
+    granularity = settings.granularity
 
     return [round(position[0] / string_length * width, granularity) for position in positions]
 
