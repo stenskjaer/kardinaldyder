@@ -250,9 +250,7 @@ def prepare_data(occurrences_list, names, string):
         ))
 
 
-    print(bars, books)
     return bars, books
-
 
 def render__tex(diagram_variables,
                 bar_variables,
@@ -324,9 +322,9 @@ def main():
 
     occurrences = create_occurrence_lists(terms, exceptions, string)
 
-    bar_data = prepare_data(occurrences, names, string)
+    output_data = prepare_data(occurrences, names, string)
 
-    render__tex(settings.diagram_variables, *bar_data)
+    render__tex(settings.diagram_variables, *output_data)
     
 if __name__ == "__main__":
     main()
