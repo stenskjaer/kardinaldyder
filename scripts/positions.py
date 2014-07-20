@@ -44,8 +44,9 @@ def open_file(filename=False):
     except:
         print("Unexpected error:", sys.exc_info()[0])
     else:
-        print('Read %s' % filename)
         f.close()
+
+        logging.info('String succesfully read')
         return(s)
 
 def set_filename(filename=False, ending='.txt'):
@@ -257,6 +258,8 @@ def separate_terms(terms):
     exceptions = [term[2] for term in terms]
 
     return names, tokens, exceptions
+    logging.INFO('Names, terms and exceptions from settings parsed.')
+    logging.DEBUG('Values: {}'.format(names, tokens, exceptions))
 
 def prepare_diagram_data(occurrences_list, names, string):
     """ Parse the (possibly nested) list of occurrences and put in dictionaries for rendering method.
