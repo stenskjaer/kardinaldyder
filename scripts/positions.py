@@ -164,7 +164,8 @@ def relative_positions(positions, string):
     return [round(position[0] / string_length * width, granularity) for position in positions]
 
 def calculations(occurrences, string):
-    """ Perform statistical calculations on contant. Return dictionary of keys and values.
+    """ Perform statistical calculations on contant. Return dictionary
+    of keys and values. 
     Keyword Arguments:
     string -- The content string
     """
@@ -204,10 +205,10 @@ def calculations(occurrences, string):
     var_coefficient = standard_deviation / observation_mean
 
     results = {
-        'Word count' : word_count,
-        'Mean (expected distance)' : expected_distance,
-        'Standard deviation' : standard_deviation,
-        'Variation coefficient' : var_coefficient
+        'word_count' : word_count,
+        'mean' : expected_distance,
+        'std_dev' : standard_deviation,
+        'var_coef' : var_coefficient
     }
     
     return results
