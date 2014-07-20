@@ -48,7 +48,7 @@ def open_file(filename=False):
         f.close()
         return(s)
 
-def set_filename(filename=False):
+def set_filename(filename=False, ending='.txt'):
     """ Defines the filename of the tex output file and create dir if necessary.
 
     Keyword Arguments:
@@ -59,7 +59,7 @@ def set_filename(filename=False):
     if not os.path.exists(directory):
         os.makedirs(directory)
     if not filename:
-        return os.path.join(directory, settings.output_name + settings.output_addon + '.tex')
+        return os.path.join(directory, settings.output_name + settings.output_addon + ending)
     else:
         return filename
 
