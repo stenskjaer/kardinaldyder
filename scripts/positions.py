@@ -11,8 +11,6 @@ import codecs
 import math
 import logging
 
-logging.basicConfig(level=logging.INFO)
-log = logging.getLogger(__name__)
 
 
 def open_file(filename=False):
@@ -102,20 +100,20 @@ def create_occurrence_lists(terms, exceptions, string):
         # Tokenize the strings
         needles = tokenize_string(terms)
         exception_list = tokenize_string(exceptions)
-        log.debug('Tokenized needles: {}'.format(needles))
-        log.debug('Tokenized exceptions: {}'.format(exception_list))
+        logging.debug('Tokenized needles: {}'.format(needles))
+        logging.debug('Tokenized exceptions: {}'.format(exception_list))
 
         # Position words and exceptions
         needle_positions = position_words(needles, string)
         exception_positions = position_words(exception_list, string)
-        log.debug('Needle positions: {}'.format(needle_positions))
-        log.debug('Exception positions: {}'.format(exception_positions))
+        logging.debug('Needle positions: {}'.format(needle_positions))
+        logging.debug('Exception positions: {}'.format(exception_positions))
 
         # Remove the exceptions and put into list
         occurrences.append(remove_exceptions(needle_positions,
                                              exception_positions))
 
-    log.debug('List of occurrences: {}'.format(occurrences))
+    logging.debug('List of occurrences: {}'.format(occurrences))
     return occurrences
 
 def recursive_search(needle, haystack):
@@ -193,10 +191,10 @@ def calculations(occurrences, string):
     for i, val in enumerate(occurrences):
         if i is 0:
             observed_distances.append(val[0])
-            log.debug('Occurrence {0} distance: '.format(i))
+            logging.debug('Occurrence {0} distance: '.format(i))
         else:
             observed_distances.append(val[0] - occurrences[i-1][0])
-            log.debug('Occurrence {0} distance: '.format(i))
+            logging.debug('Occurrence {0} distance: '.format(i))
     observed_distances.append(len(string) - occurrences[-1][0])
 
     # Count of relevant occurences (counting instances of distance)
@@ -346,10 +344,19 @@ def main():
                         action='store',
                         choices=['shell', 'file', 'both'],
                         default='shell')
+    parser.add_argument('--log', '-l',
+                        help='Set the log level (output to shell). Default = WARNING.',
+                        default='WARNING')
 
+    # Parse command line arguments
     args = parser.parse_args()
 
-    string = open_file(args.file)
+    # Set log level and initiate logging module
+    loglevel = args.log
+    logging.basicConfig(level=getattr(logging, loglevel.upper()))
+    logging.getLogger(__name__)
+
+    string = open_file(args.input)
 
     names, terms, exceptions = separate_terms(settings.terms)
 
