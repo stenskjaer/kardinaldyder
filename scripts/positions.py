@@ -252,6 +252,11 @@ def prepare_data(occurrences_list, names, string):
 
     print(bars, books)
     return bars, books
+
+
+def render__tex(diagram_variables,
+                bar_variables,
+                book_variables): 
     """ Render diagram grid in tex format.
     
     """
@@ -266,13 +271,15 @@ def prepare_data(occurrences_list, names, string):
     template = env.get_template('diagram.tex')
     
     output = template.render(
-        diagram=diagram
+        diagram=diagram_variables,
+        bars=bar_variables,
+        books=book_variables,
     )
     print(output)
 
-    # save
-    # with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
-    #     f.write(output_from_parsed_template)
+    
+    with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
+        f.write(output)
 
 
 
@@ -316,8 +323,10 @@ def main():
     names, terms, exceptions = separate_terms(settings.terms)
 
     occurrences = create_occurrence_lists(terms, exceptions, string)
-    # calculations(occurrences, string)
-    calculate_occurrences(occurrences, string)
+
+    bar_data = prepare_data(occurrences, names, string)
+
+    render__tex(settings.diagram_variables, *bar_data)
     
 if __name__ == "__main__":
     main()
