@@ -8,16 +8,39 @@
       \draw[{{ diagram.heavyrulewidth }}]( {{diagram.outer_limit_left }}, {{ diagram.outer_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.outer_limit_bottom}}); 	% Bottom border
       \draw[very thin, color=gray]( {{diagram.inner_limit_left}}, {{ diagram.innter_limit_bottom }}) -- ({{ diagram.inner_limit_left }}, {{ diagram.inner_limit_top }}); 		% Left vertical border
       \draw[{{ diagram.lightrulewidth }}]({{ diagram.outer_limit_left}}, {{ diagram.inner_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.inner_limit_top }}); 	% Mid-top border
-      \draw[very thin,color=gray]({{ diagram.inner_limit_right}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.inner_limit_right }}, {{ diagram.inner_limit_top }}); 		% Right vertical borderr
+      \draw[very thin,color=gray]({{ diagram.inner_limit_right}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.inner_limit_right }}, {{ diagram.inner_limit_top }}); 		% Right vertical border
       \draw[very thin,color=gray]({{ diagram.outer_limit_left}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.inner_limit_bottom }}); 	% Mid-bottom border
-      {% for index in range(diagram.bars) %}
-      \draw[very thin,color=gray]({{ diagram.outer_limit_left }}, {{ index/2 }}) -- ({{ diagram.outer_limit_right }}, {{ index/2 }});	% {{ index }}. horizontal line
+      {% for item in bars %}
+      \draw[very thin,color=gray]({{ diagram.outer_limit_left }}, {{ loop.index / 2 }}) -- ({{ diagram.outer_limit_right }}, {{ loop.index /2 }});	% {{ loop.index }}. horizontal line
       {% endfor %}
 
       % Headers
       \draw ({{ diagram.inner_limit_left }}, {{ diagram.header_baseline }}) node[left,color=black] {Lemma};
       \draw ({{ diagram.inner_limit_left }}, {{ diagram.header_baseline }}) node[right,color=black] {Fordeling};
       \draw ({{ diagram.outer_limit_right}}, {{ diagram.header_baseline }}) node[left,color=black] {$\sigma_{norm}$};
+
+      % Word bars (standard)
+      {% for item in bars %}
+      \draw[very thin,color=gray] (0, {{ -0.25 + (loop.index / 2) }}) -- (0, {{ 0.25 + (loop.index / 2) }}) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar
+      {% endfor %}
+
+      % Variation Coefficient
+      {% for item in bars %}
+      \draw (11.5,{{ -0.25 + (loop.index / 2) }}) (11.5,{{ 0.25 + (loop.index / 2) }}) node[left,color=black]    {{ item.var }};
+      {% endfor %}
+      
+      % Work divisions
+      {% for item in books %}
+      {{ item }}
+      {% endfor %}
+
+      {% for item in bars recursive %}
+      {% if item.occurrences %}
+      Item {{ loop.index}}: {{ loop(item.occurrences) }}
+      {% else %}
+      No content
+      {% endif %}
+      {% endfor %}
 
     \end{tikzpicture}
   \end{adjustbox}
