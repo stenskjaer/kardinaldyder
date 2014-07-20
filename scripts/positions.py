@@ -335,7 +335,6 @@ def render_tex(output_argument,
         books=book_variables,
     )
 
-    print(output_filename)
     if output_argument == str('file'):
         with open(output_filename, 'wt') as f:
             f.write(output)
