@@ -3,13 +3,19 @@
 
 # author: Author name
 # corpus_dir: Directory containing correctly formatted corpora
-# corpus_subdir: Optional subdir used in stead of author as corpus dir
+# corpus_subdir: Optional subdir used instead of author as corpus dir
 # filename_addon: Ending of corpus filename
+# output_folder: The folder where the finished .tex-file can be put.
+# output_name: Filename of output .tex (excluding ending).
+# output_addon: If specified, adds the addon between name and ending.
 author = "aischylos"
 corpus_dir = "../../kardinaldyderne/private-korpus/Corpora"
 corpus_subdir = ""
 filename_prefix = ""
 filename_addon = "-corpus-stripped.txt"
+output_folder = "../../kardinaldyderne/source/figures/dispersions"
+output_name = author
+output_addon = ""
 
 
 # terms: Søgetermer, liste. Formatteret: [' ανδρει',' ηνορε',' αδροτ',' ανδρειοτ']
