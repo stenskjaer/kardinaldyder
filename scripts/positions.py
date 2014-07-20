@@ -49,6 +49,21 @@ def open_file(filename=False):
         f.close()
         return(s)
 
+def set_filename(filename=False):
+    """ Defines the filename of the tex output file and create dir if necessary.
+
+    Keyword Arguments:
+    filename -- Optional input file.
+    """
+
+    directory = settings.output_folder
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    if not filename:
+        return os.path.join(directory, settings.output_name + settings.output_addon + '.tex')
+    else:
+        return filename
+
 def position_words(needles, haystack):
     """
     Position search terms in list with nested list of begin and end of word.
@@ -252,11 +267,18 @@ def prepare_data(occurrences_list, names, string):
 
     return bars, books
 
-def render__tex(diagram_variables,
-                bar_variables,
-                book_variables): 
+def render_tex(output_argument,
+               output_filename,
+               diagram_variables,
+               bar_variables,
+               book_variables): 
     """ Render diagram grid in tex format.
-    
+
+    Keyword Arguments:
+    output_arguments  -- The argument passed from command line.
+    diagram_variables -- Variables setting up the diagram, from settings. 
+    bar_variables     -- The data governing the individual bars in diagram.
+    book_variables    -- The data governing the location of book marks.
     """
     
     from jinja2 import Environment, FileSystemLoader
@@ -273,13 +295,19 @@ def render__tex(diagram_variables,
         bars=bar_variables,
         books=book_variables,
     )
-    print(output)
 
-    
-    with open(os.path.join('templates', 'new_file.tex'), 'wt') as f:
-        f.write(output)
-
-
+    print(output_filename)
+    if output_argument == str('file'):
+        with open(output_filename, 'wt') as f:
+            f.write(output)
+    elif output_argument == str('both'):
+        with open(output_filename, 'wt') as f:
+            f.write(output)
+        print(output)
+    elif output_argument == str('shell'):
+        print(output)
+    else:
+        logging.ERROR('Invalid output argument given. Cannot render output.')
 
 def main():
     """ Main function
@@ -313,6 +341,11 @@ def main():
                         action='store_true',
                         default=False)
 
+    parser.add_argument('--tex', '-t',
+                        help='Create output to LaTeX file with TikZ formatted diagram. Choose whether it goes to shell, file or both. Default = shell.',
+                        action='store',
+                        choices=['shell', 'file', 'both'],
+                        default='shell')
 
     args = parser.parse_args()
 
@@ -324,7 +357,12 @@ def main():
 
     output_data = prepare_data(occurrences, names, string)
 
-    render__tex(settings.diagram_variables, *output_data)
+    render_tex(args.tex,
+               set_filename(args.output),
+               settings.diagram_variables,
+               *output_data)
+
+    
     
 if __name__ == "__main__":
     main()
