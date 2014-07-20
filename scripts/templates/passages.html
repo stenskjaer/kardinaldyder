@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">    
+<html>
+  <head>
+    <title>Overview of passages</title>
+    <meta charset="UTF-8">
+  </head>
+<body style="font-family: Arial, sans-serif">
+  
+  <h1>Overview of passages in {{author|capitalize}}</h1>
+  {% for item in passages %}
+    <h2>{{ terms[loop.index0] }}</h2>
+    <table cellpadding="2">
+    {% for passage in item %}
+      <tr>
+	<td style="text-align:right;">{{ passage[0] }}</td>
+	<td style="text-align:center;font-weight:bold;">{{ passage[1] }}</td>
+	<td>{{ passage[2] }}</td>
+      </tr>  
+    {% endfor %}
+    </table>
+  {% endfor %}
+
+  <h1>Overview of exceptions in {{author|capitalize}}</h1>
+  {% for item in exceptions %}
+    <h2>{{ terms[loop.index0] }}</h2>
+    <table cellpadding="2">
+      {% for passage in item %}
+	<tr>
+	  <td style="text-align:right;">{{ passage[0] }}</td>
+	  <td style="text-align:center;font-weight:bold;">{{ passage[1] }}</td>
+	  <td>{{ passage[2] }}</td>
+	</tr>
+      {% endfor %}
+    </table>
+  {% endfor %}
+</body>
+</html>

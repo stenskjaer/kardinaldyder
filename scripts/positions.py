@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from __future__ import division
+from jinja2 import Environment, FileSystemLoader
 import settings
 import os
 import sys
@@ -116,6 +117,25 @@ def create_occurrence_lists(terms, exceptions, string):
     logging.debug('List of occurrences: {}'.format(occurrences))
     return occurrences
 
+def create_exception_list(exceptions, string):
+    """ Create a list of occurrences of exceptions in string
+    Keyword Arguments:
+    exceptions -- 
+    string     -- 
+    """
+
+    output = []
+    for exception in exceptions:
+        # Tokenize the needles
+        needles = tokenize_string(exception)
+
+        # Position exceptions in list and append to exception list
+        positions = position_words(needles, string)
+        output.append(positions)
+        
+    return output
+
+
 def recursive_search(needle, haystack):
     """ Perform recursive search of items from list. Returns list of positions.
     Keyword Arguments:
@@ -146,7 +166,7 @@ def tokenize_string(string):
     string -- input string with tokens separated by commas
     """
 
-    return [word for word in string.split(', ')]
+    return [word.strip() for word in string.split(', ')]
 
 def book_separators(string):
     """ Recursive search for book starts and return list of tuples
@@ -238,8 +258,8 @@ def separate_terms(terms):
 
     return names, tokens, exceptions
 
-def prepare_data(occurrences_list, names, string):
-    """ Parse the (possibly nested) list of occurrences
+def prepare_diagram_data(occurrences_list, names, string):
+    """ Parse the (possibly nested) list of occurrences and put in dictionaries for rendering method.
     Keyword Arguments:
     occurences -- output of the occurences function
     string     -- 
@@ -262,8 +282,29 @@ def prepare_data(occurrences_list, names, string):
             name = name,
         ))
 
-
     return bars, books
+
+def occurrences_in_context(occurrences, string):
+    """ Prepare the data in dictionaries for html output of passages.
+    Keyword Arguments:
+    occurrences -- 
+    exceptions  -- 
+    string      -- 
+    """
+
+    # Find passage context and parse into nested list.
+    occurrences_in_context = []
+    for sublist in occurrences:
+        occurrence_context = []
+        for passage in sublist:
+            pre = string[passage[0] - 50 : passage[0] + 1]
+            word = passage[2]
+            post = string[passage[1] + 1 : passage[1] + 50]
+            occurrence_context.append([pre, word, post])
+        occurrences_in_context.append(occurrence_context)
+        
+
+    return(occurrences_in_context)
 
 def render_tex(output_argument,
                output_filename,
@@ -278,8 +319,6 @@ def render_tex(output_argument,
     bar_variables     -- The data governing the individual bars in diagram.
     book_variables    -- The data governing the location of book marks.
     """
-    
-    from jinja2 import Environment, FileSystemLoader
 
     env = Environment(
         loader=FileSystemLoader('templates'),
@@ -307,6 +346,36 @@ def render_tex(output_argument,
     else:
         logging.ERROR('Invalid output argument given. Cannot render output.')
 
+def render_passages_in_html(passages, exceptions, author, terms, string, output_filename):
+    """ Render output of passages. 
+    Keyword Arguments:
+    positions  -- 
+    exceptions -- 
+    string     -- 
+    """
+
+    env = Environment(
+        loader=FileSystemLoader('templates'),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+
+    template = env.get_template('passages.html')
+
+    exception_list = create_exception_list(exceptions, string)
+    exceptions = occurrences_in_context(exception_list, string)
+    passages = occurrences_in_context(passages, string)
+
+    output = template.render(
+        passages=passages,
+        exceptions=exceptions,
+        author=author,
+        terms=terms,
+    )
+
+    with open(output_filename, 'wt') as f:
+        f.write(output)
+
 def main():
     """ Main function
 
@@ -321,13 +390,17 @@ def main():
     parser.add_argument('output', nargs='?',
                         help='Full filename of the selected output.')
     parser.add_argument('--stats', '-s',
-                        help='Calculate and output statistics.',
+                        help='(Not implemented yet). Calculate and output statistics. Default = false.',
+                        action='store_true',
+                        default=False)
+    parser.add_argument('--passages', '-p',
+                        help='Print all passages and exceptions in search terms to file. Default = false.',
                         action='store_true',
                         default=False)
     parser.add_argument('--tex', '-t',
                         help='Create output to LaTeX file with TikZ formatted diagram. Choose whether it goes to shell, file or both. Default = shell.',
                         action='store',
-                        choices=['shell', 'file', 'both'],
+                        choices=['shell', 'file', 'both', 'none'],
                         default='shell')
     parser.add_argument('--log', '-l',
                         help='Set the log level (output to shell). Default = WARNING.',
@@ -353,6 +426,13 @@ def main():
                set_filename(args.output),
                settings.diagram_variables,
                *output_data)
+
+    render_passages_in_html(occurrences,
+                            exceptions,
+                            settings.author,
+                            [term[0] for term in settings.terms],
+                            string,
+                            '/tmp/passage_dump.html')
 
     
     
