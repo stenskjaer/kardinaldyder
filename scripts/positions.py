@@ -148,7 +148,7 @@ def book_separators(string):
     matches = recursive_search(pattern, string)
     return [(match.start(), match.group()) for match in matches]
 
-def relative_positions(positions):
+def relative_positions(positions, string):
     """ Create list with positions relative to diagram size and granularity. Used in output rendition.
     Keyword Arguments:
     positions   -- result of position_words, list of absolute positions
@@ -157,8 +157,8 @@ def relative_positions(positions):
     """
 
     # Set vars
-    string_length = settings.string_length
-    width	= settings.width
+    string_length = len(string)
+    width	= settings.width_factor
     granularity = settings.granularity
 
     return [round(position[0] / string_length * width, granularity) for position in positions]
