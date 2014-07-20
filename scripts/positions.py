@@ -167,7 +167,7 @@ def tokenize_string(string):
     string -- input string with tokens separated by commas
     """
 
-    return [word.strip() for word in string.split(', ')]
+    return [word.strip() for word in string.split(', ') if string]
 
 def book_separators(string):
     """ Recursive search for book starts and return list of tuples
