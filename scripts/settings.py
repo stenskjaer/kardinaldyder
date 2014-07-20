@@ -32,12 +32,7 @@ terms = [
      " ανδρει, ηνορε, αδροτ, ανδρειοτ, ανδροτ, ανορε",
      " ανδροτυχ"],
 ]
-exceptions = [
-    [" φρονημ, φροντισα,  φροντιζ, φροντισ{ε"],
-    [" σοφοκλ", " σοφιστ", " σοφιζ", " σοφισμ"],
-]
 
-bar_baseline = 0
 
 # freq_factor: Frekvensfaktor anvendt i statistiske beregninger
 # width_factor: Bredden på diagrammet
