@@ -225,7 +225,33 @@ def separate_terms(terms):
 
     return names, tokens, exceptions
 
-def render__tex(diagram):
+def prepare_data(occurrences_list, names, string):
+    """ Parse the (possibly nested) list of occurrences
+    Keyword Arguments:
+    occurences -- output of the occurences function
+    string     -- 
+    """
+    # Calculate relative positions of books
+    books = relative_positions(book_separators(string), string)
+    
+    bars = []
+    for occurrences, name in zip(occurrences_list, names):
+        # Get variation coefficient from calculations output
+        var_coef = calculations(occurrences, string).get('var_coef')
+
+        # Calculate relative positions of occurences
+        occurrences = relative_positions(occurrences, string)
+
+        # Finish the dictionary
+        bars.append(dict(
+            occurrences = occurrences,
+            var = round(var_coef, 2),
+            name = name,
+        ))
+
+
+    print(bars, books)
+    return bars, books
     """ Render diagram grid in tex format.
     
     """
