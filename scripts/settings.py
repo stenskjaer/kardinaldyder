@@ -40,8 +40,8 @@ terms = [
 # granularity: Hvor fint skal den skelne mellem linjernes placering?
 freq_factor = 10000
 width_factor = 10
-diagram_bars = 7
 granularity = 4
+bar_baseline = 0
 
 # Diagram settings
 diagram_variables = {
@@ -49,13 +49,9 @@ diagram_variables = {
     'lightrulewidth'	: "line width=0.05em",
     'outer_limit_left'	: -1.5,
     'outer_limit_right'	: width_factor + 1.5,
-    'outer_limit_top'	: (diagram_bars * 0.5) + 0.75,
     'outer_limit_bottom': -0.65,
     'inner_limit_left'	: 0,
     'inner_limit_right'	: width_factor,
-    'inner_limit_top'	: diagram_bars * 0.5,
     'inner_limit_bottom': 0,
-    'header_baseline'	: (diagram_bars * 0.5) + 0.35,
-    'header_baseline_descender': (diagram_bars * 0.5) + 0.3,
-    'bars'		: diagram_bars,
+    'author'		: author
     }
