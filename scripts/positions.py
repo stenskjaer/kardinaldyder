@@ -308,7 +308,6 @@ def occurrences_in_context(occurrences, string):
 
 def render_tex(output_argument,
                output_filename,
-               diagram_variables,
                bar_variables,
                book_variables): 
     """ Render diagram grid in tex format.
@@ -328,7 +327,7 @@ def render_tex(output_argument,
     template = env.get_template('diagram.tex')
     
     output = template.render(
-        diagram=diagram_variables,
+        diagram=settings.diagram_variables,
         bars=bar_variables,
         books=book_variables,
     )
@@ -346,7 +345,7 @@ def render_tex(output_argument,
     else:
         logging.ERROR('Invalid output argument given. Cannot render output.')
 
-def render_passages_in_html(passages, exceptions, author, terms, string, output_filename):
+def render_passages_in_html(terms, exceptions, string, output_filename):
     """ Render output of passages. 
     Keyword Arguments:
     positions  -- 
@@ -362,15 +361,18 @@ def render_passages_in_html(passages, exceptions, author, terms, string, output_
 
     template = env.get_template('passages.html')
 
+    # 
     exception_list = create_exception_list(exceptions, string)
+    passage_list = create_occurrence_lists(terms, exceptions, string)
+
     exceptions = occurrences_in_context(exception_list, string)
-    passages = occurrences_in_context(passages, string)
+    passages = occurrences_in_context(passage_list, string)
 
     output = template.render(
         passages=passages,
         exceptions=exceptions,
-        author=author,
-        terms=terms,
+        author=settings.author,
+        terms=[name[0] for name in settings.terms],
     )
 
     with open(output_filename, 'wt') as f:
@@ -414,25 +416,24 @@ def main():
     logging.basicConfig(level=getattr(logging, loglevel.upper()))
     logging.getLogger(__name__)
 
+    # Read the string
     string = open_file(args.input)
-
     names, terms, exceptions = separate_terms(settings.terms)
 
     occurrences = create_occurrence_lists(terms, exceptions, string)
 
-    output_data = prepare_data(occurrences, names, string)
+    output_data = prepare_diagram_data(occurrences, names, string)
 
-    render_tex(args.tex,
-               set_filename(args.output),
-               settings.diagram_variables,
-               *output_data)
+    if args.tex is not 'none':
+        render_tex(args.tex,
+                   set_filename(args.output, '.tex'),
+                   *output_data)
 
-    render_passages_in_html(occurrences,
-                            exceptions,
-                            settings.author,
-                            [term[0] for term in settings.terms],
-                            string,
-                            '/tmp/passage_dump.html')
+    if args.passages:
+        render_passages_in_html(terms,
+                                exceptions,
+                                string,
+                                set_filename(args.output, '.html'))
 
     
     
