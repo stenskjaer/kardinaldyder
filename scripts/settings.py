@@ -13,7 +13,7 @@ corpus_dir = "../../kardinaldyderne/private-korpus/Corpora"
 corpus_subdir = ""
 filename_prefix = ""
 filename_addon = "-corpus-stripped.txt"
-output_folder = "../../kardinaldyderne/source/figures/dispersions"
+output_folder = "../../kardinaldyderne/source/figures/dispersions/output"
 output_name = author
 output_addon = ""
 
