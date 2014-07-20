@@ -2,52 +2,66 @@
   \centering
   \begin{adjustbox}{width=\linewidth}
     \begin{tikzpicture}
+    {% set height = bars|length / 2 %}
+    {% set outer_limit_top = height + 0.75 %}
+    {% set inner_limit_top = height %}
+    {% set header_baseline = height + 0.35 %}
+    {% set header_baseline_descender = height + 0.3 %}
 
       % Grid
-      \draw[{{ diagram.heavyrulewidth }}]( {{diagram.outer_limit_left }}, {{ diagram.outer_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.outer_limit_top }}); 	% Top border
-      \draw[{{ diagram.heavyrulewidth }}]( {{diagram.outer_limit_left }}, {{ diagram.outer_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.outer_limit_bottom}}); 	% Bottom border
-      \draw[very thin, color=gray]( {{diagram.inner_limit_left}}, {{ diagram.innter_limit_bottom }}) -- ({{ diagram.inner_limit_left }}, {{ diagram.inner_limit_top }}); 		% Left vertical border
-      \draw[{{ diagram.lightrulewidth }}]({{ diagram.outer_limit_left}}, {{ diagram.inner_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.inner_limit_top }}); 	% Mid-top border
-      \draw[very thin,color=gray]({{ diagram.inner_limit_right}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.inner_limit_right }}, {{ diagram.inner_limit_top }}); 		% Right vertical border
+      \draw[{{ diagram.heavyrulewidth }}]({{diagram.outer_limit_left }}, {{ outer_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ outer_limit_top }}); 	% Top border
+      \draw[{{ diagram.heavyrulewidth }}]({{diagram.outer_limit_left }}, {{ diagram.outer_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.outer_limit_bottom}}); 	% Bottom border
+      \draw[very thin, color=gray]({{diagram.inner_limit_left}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.inner_limit_left }}, {{ inner_limit_top }}); 		% Left vertical border
+      \draw[{{ diagram.lightrulewidth }}]({{ diagram.outer_limit_left}}, {{ inner_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ inner_limit_top }}); 	% Mid-top border
+      \draw[very thin,color=gray]({{ diagram.inner_limit_right}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.inner_limit_right }}, {{ inner_limit_top }}); 		% Right vertical border
       \draw[very thin,color=gray]({{ diagram.outer_limit_left}}, {{ diagram.inner_limit_bottom }}) -- ({{ diagram.outer_limit_right }}, {{ diagram.inner_limit_bottom }}); 	% Mid-bottom border
       {% for item in bars %}
       \draw[very thin,color=gray]({{ diagram.outer_limit_left }}, {{ loop.index / 2 }}) -- ({{ diagram.outer_limit_right }}, {{ loop.index /2 }});	% {{ loop.index }}. horizontal line
       {% endfor %}
 
       % Headers
-      \draw ({{ diagram.inner_limit_left }}, {{ diagram.header_baseline }}) node[left,color=black] {Lemma};
-      \draw ({{ diagram.inner_limit_left }}, {{ diagram.header_baseline }}) node[right,color=black] {Fordeling};
-      \draw ({{ diagram.outer_limit_right}}, {{ diagram.header_baseline }}) node[left,color=black] {$\sigma_{norm}$};
+      \draw ({{ diagram.inner_limit_left }}, {{ header_baseline }}) node[left,color=black] {Lemma};
+      \draw ({{ diagram.inner_limit_left }}, {{ header_baseline_descender }}) node[right,color=black] {Fordeling};
+      \draw ({{ diagram.outer_limit_right}}, {{ header_baseline }}) node[left,color=black] {$\sigma_{norm}$};
 
       % Word bars (standard)
       {% for item in bars %}
-      \draw[very thin,color=gray] (0, {{ -0.25 + (loop.index / 2) }}) -- (0, {{ 0.25 + (loop.index / 2) }}) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar
+      {% if loop.first %} \draw[very thin,color=gray] (0, 0) -- (0, 0.25) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar 
+      {% else %}
+      \draw[very thin,color=gray] (0, {{ (loop.index0 / 2) - 0.25 }}) -- (0, {{ (loop.index0 / 2) + 0.25 }}) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar
+      {% endif %}
       {% endfor %}
 
       % Variation Coefficient
       {% for item in bars %}
-      \draw (11.5,{{ -0.25 + (loop.index / 2) }}) (11.5,{{ 0.25 + (loop.index / 2) }}) node[left,color=black]    {{ item.var }};
+      {% if loop.first %}
+      \draw (11.5, 0) (11.5, 0.25) node[left,color=black] {$ {{- item.var -}} $};
+      {% else%}
+      \draw (11.5,{{ (loop.index0 / 2) - 0.25 }}) (11.5,{{ (loop.index0 / 2) + 0.25 }}) node[left,color=black] {$ {{- item.var -}} $};
+      {% endif %}
       {% endfor %}
       
       % Work divisions
       {% for item in books %}
-      {{ item }}
+      \draw[very thin,color=gray]({{ item }}, {{ diagram.inner_limit_bottom }})node[below,color=black]{ {{- loop.index -}} } -- ({{ item }}, {{ height }}); % [{{ loop.index }}] {Work} {{ item }}
       {% endfor %}
 
-      {% for item in bars recursive %}
-      {% if item.occurrences %}
-      Item {{ loop.index}}: {{ loop(item.occurrences) }}
-      {% else %}
-      No content
-      {% endif %}
+      %% Occurrence dispersions
+      {% for item in bars %}
+      {% set barloop = loop %}
+
+      % {{ item.name }}
+      {% for occurrence in item.occurrences %}
+      \draw[very thin]({{ occurrence }}, {{ (barloop.index / 2) - 0.5 }}) -- ( {{ occurrence }}, {{ (barloop.index / 2) }});
+      {% endfor %}
       {% endfor %}
 
     \end{tikzpicture}
   \end{adjustbox}
-  \caption{Diagram over søgetermernes fordeling hos Aischylos.}
-  \label{fig:fordeling:aischylos}
+  \caption{Søgetermernes fordeling hos {{ diagram.author|capitalize }}.}
+  \label{fig:fordeling:{{ diagram.author }}}
 \end{table}
 %%% Local Variables: 
 %%% mode: latex
-%%% TeX-master: "."
+%%% TeX-master: "../../main"
 %%% End: 
