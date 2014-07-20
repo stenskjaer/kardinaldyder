@@ -315,30 +315,15 @@ def main():
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Position occurences of search word in file and produce latex output. Default settings in settings.py-file')
-    parser.add_argument('file', nargs='?',
-                        help='Optional. The file to be parsed. If none is given, the settings-file is used.')
+        description='Position occurences of search words in file and produce latex output and statistics. Default settings in settings.py-file')
+    parser.add_argument('input', nargs='?',
+                        help='The file to be parsed. If none is given, the settings-file is used.')
+    parser.add_argument('output', nargs='?',
+                        help='Full filename of the selected output.')
     parser.add_argument('--stats', '-s',
                         help='Calculate and output statistics.',
                         action='store_true',
                         default=False)
-    parser.add_argument('--plot', '-p',
-                        help='Output scatter plot bar with vertical bars.',
-                        action='store_true',
-                        default=False)
-    parser.add_argument('--diagram', '-d',
-                        help='Output whole diagram grid and surrounding table.',
-                        action='store_true',
-                        default=False)
-    parser.add_argument('--passages', '-a',
-                        help='Output passages with context.',
-                        action='store_true',
-                        default=False)
-    parser.add_argument('--full', '-f',
-                        help='Enable all features in output',
-                        action='store_true',
-                        default=False)
-
     parser.add_argument('--tex', '-t',
                         help='Create output to LaTeX file with TikZ formatted diagram. Choose whether it goes to shell, file or both. Default = shell.',
                         action='store',
