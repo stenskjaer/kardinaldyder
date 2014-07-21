@@ -418,7 +418,7 @@ def main():
                         default='shell')
     parser.add_argument('--log', '-l',
                         help='Set the log level (output to shell). Default = WARNING.',
-                        default='WARNING')
+                        default='INFO')
 
     # Parse command line arguments
     args = parser.parse_args()
