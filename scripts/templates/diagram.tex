@@ -26,7 +26,8 @@
 
       % Word bars (standard)
       {% for item in bars %}
-      {% if loop.first %} \draw[very thin,color=gray] (0, 0) -- (0, 0.25) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar 
+      {% if loop.first %}
+      \draw[very thin,color=gray] (0, 0) -- (0, 0.25) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar 
       {% else %}
       \draw[very thin,color=gray] (0, {{ (loop.index0 / 2) - 0.25 }}) -- (0, {{ (loop.index0 / 2) + 0.25 }}) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar
       {% endif %}
