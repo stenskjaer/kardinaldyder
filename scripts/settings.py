@@ -12,8 +12,8 @@ author = "aischylos"
 corpus_dir = "../../kardinaldyderne/private-korpus/Corpora"
 corpus_subdir = ""
 filename_prefix = ""
-filename_addon = "-corpus-stripped.txt"
-output_folder = "../../kardinaldyderne/source/figures/dispersions/output"
+filename_addon = "-total1.txt"
+output_folder = "../../kardinaldyderne/source/figures/dispersions"
 output_name = author
 output_addon = ""
 
@@ -22,13 +22,25 @@ output_addon = ""
 # exceptions: Søgetermer som skal udelukkes. Formatteres som søgetermer.
 # bar_baseline: Koordinat for diagramlinjens grundlinje.
 terms = [
+    ['εὐσεβ-',
+     'ευσεβ',
+     ''],
+    ['ὁσι-',
+     'οσι',
+     'οσιρι'],
     ["φρον-",
      "φρον, φρο\[ν",
      "φρονημ, φροντισα,  φροντιζ, φροντισ\{ε"],
+    ['σωφρ-',
+     'σωφρ',
+     ''],
     ["σοφ-",
      "σοφ, †σοφ",
      "σοφοκλ, σοφιστ, σοφιζ, σοφισμ"],
-    ["ανδρει-",
+    ['δικαι-',
+     'δικαι, δ\[ι\]και,  δικα\[ι, δικαιοτερ',
+     ''],
+    ["ἀνδρει-",
      " ανδρει, ηνορε, αδροτ, ανδρειοτ, ανδροτ, ανορε",
      " ανδροτυχ"],
 ]
