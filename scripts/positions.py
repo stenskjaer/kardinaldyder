@@ -445,7 +445,7 @@ def main():
         render_passages_in_html(terms,
                                 exceptions,
                                 string,
-                                set_filename(args.output, '.html'))
+                                set_filename("/tmp/output_dump.html", '.html'))
 
     
     
