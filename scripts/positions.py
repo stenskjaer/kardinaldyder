@@ -39,8 +39,8 @@ def open_file(filename=False):
     try:
         f = codecs.open(filename, 'rb','utf8')
         s = f.read()
-    except IOError:
-        print('cannot open', arg)
+    except IOError as err:
+        print('Cannot open {}'.format(err))
     except:
         print("Unexpected error:", sys.exc_info()[0])
     else:
