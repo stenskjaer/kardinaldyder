@@ -178,9 +178,9 @@ def book_separators(string):
 
     """
     
-    pattern = "(\[[0-9]{1,2}\]\s\{.*?\})"
+    pattern = "\[([0-9]{1,2})\]\s\{(.*?)\}"
     matches = recursive_search(pattern, string)
-    return [(match.start(), match.group()) for match in matches]
+    return [[match.start(), match.group(1), match.group(2)] for match in matches]
 
 def relative_positions(positions, string):
     """ Create list with positions relative to diagram size and granularity. Used in output rendition.
@@ -268,7 +268,17 @@ def prepare_diagram_data(occurrences_list, names, string):
     string     -- 
     """
     # Calculate relative positions of books
-    books = relative_positions(book_separators(string), string)
+
+
+    absolute_books = book_separators(string)
+    logging.info('Created list of books positions, number and title')
+
+    relative_books = relative_positions(absolute_books, string)
+    books = [dict(position = round(relative, 2),
+                  number = absolute[1],
+                  title = absolute[2])
+             for relative, absolute in zip(relative_books, absolute_books)] 
+    logging.info('Put relative positions, number and titles in dict.')
     
     bars = []
     for occurrences, name in zip(occurrences_list, names):
