@@ -31,7 +31,7 @@ def open_file(filename=False):
     # If filename is not set from command line parameters, use settings
     if not filename:
         if settings.corpus_subdir:
-            filename = os.path.join(corpus_dir, corpus_subdir, author, filename_prefix+filename_addon)
+            filename = os.path.join(corpus_dir, corpus_subdir, filename_prefix+filename_addon)
         else:
             filename = os.path.join(corpus_dir, author, filename_prefix+filename_addon)
 
