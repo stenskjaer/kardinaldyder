@@ -44,7 +44,7 @@
       
       % Work divisions
       {% for item in books %}
-      \draw[very thin,color=gray]({{ item.position }}, {{ diagram.inner_limit_bottom }})node[below,color=black]{\emph{ {{- item.title -}} }} -- ({{ item.position }}, {{ height }});		% Title: {{ item.title }}, number: {{ item.number }}, position: {{ item.position }}
+      \draw[very thin,color=gray]({{ item.position }}, {{ diagram.inner_limit_bottom }})node[anchor=mid, yshift=-2ex, color=black]{\emph{ {{- item.title -}} }} -- ({{ item.position }}, {{ height }});		% Title: {{ item.title }}, number: {{ item.number }}, position: {{ item.position }}
       {% endfor %}
 
       %% Occurrence dispersions
