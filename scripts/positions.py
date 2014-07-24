@@ -203,49 +203,53 @@ def calculations(occurrences, string):
     Keyword Arguments:
     string -- The content string
     """
-    # word_count
-    pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
-    word_count = len(re.findall(pattern, string))
-    
-    # List of observed distances between occurences
-    observed_distances = []
-    for i, val in enumerate(occurrences):
-        if i is 0:
-            observed_distances.append(val[0])
-            logging.debug('Occurrence {0} distance: '.format(i))
-        else:
-            observed_distances.append(val[0] - occurrences[i-1][0])
-            logging.debug('Occurrence {0} distance: '.format(i))
-    observed_distances.append(len(string) - occurrences[-1][0])
 
-    # Count of relevant occurences (counting instances of distance)
-    count = len(observed_distances)
+    if not occurrences:
+        logging.warn('No occurrences of item, skipping stats for this token.')
+    else:
+        # word_count
+        pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
+        word_count = len(re.findall(pattern, string))
 
-    # Mean (= expected distance)
-    expected_distance = len(string) / count
+        # List of observed distances between occurrences
+        observed_distances = []
+        for i, val in enumerate(occurrences):
+            if i is 0:
+                observed_distances.append(val[0])
+                logging.debug('Occurrence {0} distance: '.format(i))
+            else:
+                observed_distances.append(val[0] - occurrences[i-1][0])
+                logging.debug('Occurrence {0} distance: '.format(i))
+        observed_distances.append(len(string) - occurrences[-1][0])
 
-    # Observation mean: The mean of alle observed distances. sum(obs_dist) / count
-    # Needed for variance and variation coefficient
-    observation_mean = sum(observed_distances) / count
+        # Count of relevant occurrences (counting instances of distance)
+        count = len(observed_distances)
 
-    # Variance
-    obs_minus_mean = [pow(observation - expected_distance, 2) for observation in observed_distances]
-    variance = sum(obs_minus_mean) / count 
+        # Mean (= expected distance)
+        expected_distance = len(string) / count
 
-    # Standard deviation
-    standard_deviation = math.sqrt(variance)
+        # Observation mean: The mean of alle observed distances. sum(obs_dist) / count
+        # Needed for variance and variation coefficient
+        observation_mean = sum(observed_distances) / count
 
-    # Variation coefficient (normalized standard deviation)
-    var_coefficient = standard_deviation / observation_mean
+        # Variance
+        obs_minus_mean = [pow(observation - expected_distance, 2) for observation in observed_distances]
+        variance = sum(obs_minus_mean) / count 
 
-    results = {
-        'word_count' : word_count,
-        'mean' : expected_distance,
-        'std_dev' : standard_deviation,
-        'var_coef' : var_coefficient
-    }
-    
-    return results
+        # Standard deviation
+        standard_deviation = math.sqrt(variance)
+
+        # Variation coefficient (normalized standard deviation)
+        var_coefficient = standard_deviation / observation_mean
+
+        results = {
+            'word_count' : word_count,
+            'mean' : expected_distance,
+            'std_dev' : standard_deviation,
+            'var_coef' : var_coefficient
+        }
+
+        return results
 
 def separate_terms(terms):
     """ Sort names, terms and exceptions into separate lists
@@ -267,9 +271,8 @@ def prepare_diagram_data(occurrences_list, names, string):
     occurrences -- output of the occurrences function
     string     -- 
     """
-    # Calculate relative positions of books
-
-
+    
+    # Check for content in list
     absolute_books = book_separators(string)
     logging.info('Created list of books positions, number and title')
 
@@ -279,21 +282,25 @@ def prepare_diagram_data(occurrences_list, names, string):
                   title = absolute[2])
              for relative, absolute in zip(relative_books, absolute_books)] 
     logging.info('Put relative positions, number and titles in dict.')
-    
+
     bars = []
     for occurrences, name in zip(occurrences_list, names):
-        # Get variation coefficient from calculations output
-        var_coef = calculations(occurrences, string).get('var_coef')
+        # Check for content 
+        if not occurrences:
+            logging.warn('No occurrences of item, so it will not get included in the diagram.')
+        else:
+            # Get variation coefficient from calculations output
+            var_coef = calculations(occurrences, string).get('var_coef')
 
-        # Calculate relative positions of occurences
-        occurrences = relative_positions(occurrences, string)
+            # Calculate relative positions of occurrences
+            occurrences = relative_positions(occurrences, string)
 
-        # Finish the dictionary
-        bars.append(dict(
-            occurrences = occurrences,
-            var = round(var_coef, 2),
-            name = name,
-        ))
+            # Finish the dictionary
+            bars.append(dict(
+                occurrences = occurrences,
+                var = round(var_coef, 2),
+                name = name,
+            ))
 
     return bars, books
 
