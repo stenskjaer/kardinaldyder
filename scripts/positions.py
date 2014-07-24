@@ -264,7 +264,7 @@ def separate_terms(terms):
 def prepare_diagram_data(occurrences_list, names, string):
     """ Parse the (possibly nested) list of occurrences and put in dictionaries for rendering method.
     Keyword Arguments:
-    occurences -- output of the occurences function
+    occurrences -- output of the occurrences function
     string     -- 
     """
     # Calculate relative positions of books
@@ -398,7 +398,7 @@ def main():
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Position occurences of search words in file and produce latex output and statistics. Default settings in settings.py-file')
+        description='Position occurrences of search words in file and produce latex output and statistics. Default settings in settings.py-file')
     parser.add_argument('input', nargs='?',
                         help='The file to be parsed. If none is given, the settings-file is used.')
     parser.add_argument('output', nargs='?',
