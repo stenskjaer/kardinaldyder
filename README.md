@@ -1,31 +1,30 @@
 Korpus
 ======
 
-Data og værktøjer anvendt i mine undersøgelser af kardinaldyderne.
+Data og værktøjer anvendt i mine undersøgelser af kardinaldyderne i den græske litteratur frem til starten af fjerde århundrede.
 
-Dette repository indeholder tre simple mapper:
-- kollokationer: Kollokationslister for kardinaldyderne og omkringliggende begreber frem til Platon.
+Dette repository indeholder tre mapper:
+- kollokationer: Kollokationslister for kardinaldyderne og omkringliggende begreber frem til og med Platon.
 - lemmata: Fem forskellige lemmafiler der kan anvendes til korpuslingvistisk analyse af græske tekster. 
-- scripts: Lidt forskellige php-skripts anvendt til tekstmanipulation i forbindelse med undersøgelserne.
+- scripts: En lille gruppe programmer jeg har skrevet og anvendt i forbindelse med undersøgelserne.
 
 
 Kollokationer
 ------------
 
-Kollokationslister for litteraturen frem til Platon (inklusiv).
+Kollokationslister for litteraturen frem til Platon (inklusive).
 
-Filerne er struktureret som CSV-filer (comma seperated values). Det er almindelige tekstfiler, men læses nemmest i en spreadsheet editor. Skal åbnes i et program der understøtter UTF-8. 
+Filerne er struktureret som CSV-filer (comma seperated values). Det er almindelige tekstfiler som enten kan læses online eller downloades. Vælger man at åbne filerne lokalt, læses de nemmest i en spreadsheet editor som understøtter UTF-8.
 
-Jeg anbefaler at åbne filerne i [Libre Office](http://da.libreoffice.org/), som læser dem problemfrit. *Brug ikke Microsoft Excel, det kan ikke finde ud af det græske!*
+Jeg anbefaler at åbne filerne i [Libre Office](http://da.libreoffice.org/), som læser dem problemfrit. Excel kan anvendes, men jeg anbefaler det ikke da det kan give problemer med de græske bogstaver.
 
-Bemærk: Listerne er ikke fejlfri. På grund af sammenfald af former der kan tilskrives forskellige græske lemmaer misforstår softwaren til tider hvilket lemma der forekommer i teksten. Der er sorteret i lemma-listerne (se nedenfor) for at afhælpe de største problemer.
+Listerne er ikke fejlfri. På grund af sammenfald af former der kan tilskrives forskellige græske lemmaer, misforstår softwaren til tider hvilket lemma der forekommer i teksten. Der er sorteret i lemma-listerne (se nedenfor) for at afhælpe de største problemer.
 
 
 Lemmata
 -------
 
 Fem forskellige, men forbundne lemma-lister.
-GitHub til ikke hoste så store filer, så de kan findes på dette link til min [Dropbox](https://www.dropbox.com/sh/lu6tfp5ec5w1sn9/d3t1IbGeIc)
 
 Listerne er baseret på _LSJ_ og kompileret af TLG-softwaren _Diogenes_. 
 Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.net/projects/diogenes/files/diogenes/3.1.6/)
@@ -33,11 +32,9 @@ Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.ne
 
 `original_lemmata.txt` er `beta_lemmata.txt` konverteret til unicode med værktøjet [BetaCodeConverter](http://www.lucius-hartmann.ch/programme/bcconver.php) til Mac OS X. 
 
+`modified_lemmata.txt` er ovenstående fil modificeret for at afhjælpe de største problemer med sammenfaldende former. Jeg har fjernet de dobbelte former der måtte være i det lemma der generelt er mindst hyppigt. Det er naturligvis ikke nogen optimal fremgangsmåde, men uden et annoteret korpus der angiver netop hvilket lemma hvert ord er, ser jeg ikke anden løsning her. Hvis man mangler en almen lemmaliste til korpuslingvistisk analyse af oldgræske tekster, er dette den mest anvendelige fil. 
 
-
-`modified_lemmata.txt` er ovenstående fil modificeret for at afhjælpe de største problemer med sammenfaldende former. Jeg har fjernet de dobbelte former der måtte være i det lemma der generelt er mindst hyppigt. Det er naturligvis ikke nogen optimal fremgangsmåde, men uden et annoteret korpus der angiver netop hvilket lemma hvert ord er, ser jeg ikke anden løsning her.
-
-`concat_orthodox_lemmata.txt` er ovenstående fil med fire trunkerede lemmata for de fire ortodokse kardinaldyder. Disse lemmata anvendes til kollokationslister efter samme principper som de generelle TLG-søgninger, der også baserer sig på trunkerede former.
+`concat_orthodox_lemmata.txt` er ovenstående fil med fire trunkerede lemmata for de fire ortodokse kardinaldyder. Disse lemmata anvendes til at danne kollokationslister efter samme principper som de generelle TLG-søgninger, der også baserer sig på trunkerede former. Principperne for disse søgninger er behandlet i min bog.
 
 `concat_extended_lemmata.txt` svarer til ovenstående fil, men hvor de trunkerede lemmata inkluderer de tre forbundne former som også indgår i ordgrundlaget (φρον, οσι, ευσεβ).
 
@@ -45,7 +42,7 @@ Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.ne
 Scripts
 -------
 
-En lille samling af forskellige amatørskripts anvendt til tekstmanipulation og beregninger i forbindelser med ordundersøgelserne.
+En lille samling af forskellige programmer anvendt til tekstmanipulation, beregninger og produktion af diagrammer i forbindelser med ordundersøgelserne.
 
 Der er simple, rodede og uskønne skripts som virkelig kunne trænge til en gennemarbejdning.
 De vigtigste i undersøgelserne er:
