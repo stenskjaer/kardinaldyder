@@ -1,12 +1,10 @@
 \begin{table}[htbp]
-  \centering
+  \centering\small
   \begin{adjustbox}{width=\linewidth}
     \begin{tikzpicture}
     {% set height = bars|length / 2 %}
-    {% set outer_limit_top = height + 0.75 %}
+    {% set outer_limit_top = height + 0.6 %}
     {% set inner_limit_top = height %}
-    {% set header_baseline = height + 0.35 %}
-    {% set header_baseline_descender = height + 0.3 %}
 
       % Grid
       \draw[{{ diagram.heavyrulewidth }}]({{diagram.outer_limit_left }}, {{ outer_limit_top }}) -- ({{ diagram.outer_limit_right }}, {{ outer_limit_top }}); 	% Top border
@@ -20,25 +18,27 @@
       {% endfor %}
 
       % Headers
-      \draw ({{ diagram.inner_limit_left }}, {{ header_baseline }}) node[left,color=black] {Lemma};
-      \draw ({{ diagram.inner_limit_left }}, {{ header_baseline_descender }}) node[right,color=black] {Fordeling};
-      \draw ({{ diagram.outer_limit_right}}, {{ header_baseline }}) node[left,color=black] {$\sigma_{norm}$};
+      \node at ({{ diagram.inner_limit_left }}, {{ inner_limit_top }}) [anchor=base east, yshift=1.4ex]{Lemma};
+      \node at ({{ diagram.inner_limit_left }}, {{ inner_limit_top }}) [anchor=base west, yshift=1.4ex]{Fordeling};
+      \node at ({{ diagram.outer_limit_right }}, {{ inner_limit_top }}) [anchor=base east, yshift=1.4ex]{$\sigma_{norm}$};
+
+
 
       % Word bars (standard)
       {% for item in bars %}
       {% if loop.first %}
-      \draw[very thin,color=gray] (0, 0) -- (0, 0.25) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar 
+      \draw[very thin,color=gray] (0, 0) -- (0, 0.25) node[anchor=mid east,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar 
       {% else %}
-      \draw[very thin,color=gray] (0, {{ (loop.index0 / 2) - 0.25 }}) -- (0, {{ (loop.index0 / 2) + 0.25 }}) node[left,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar
+      \draw[very thin,color=gray] (0, {{ (loop.index0 / 2) - 0.25 }}) -- (0, {{ (loop.index0 / 2) + 0.25 }}) node[anchor=mid east,color=black] {{ '{{\gr' }} {{ item.name }} {{ '}}' }};		% {{ loop.index }}. bar
       {% endif %}
       {% endfor %}
 
       % Variation Coefficient
       {% for item in bars %}
       {% if loop.first %}
-      \draw (11.5, 0) (11.5, 0.25) node[left,color=black] {$ {{- item.var -}} $};
+      \draw ({{ diagram.outer_limit_right }}, 0) ({{ diagram.outer_limit_right }}, 0.25) node[left,color=black] {$ {{- item.var -}} $};
       {% else%}
-      \draw (11.5,{{ (loop.index0 / 2) - 0.25 }}) (11.5,{{ (loop.index0 / 2) + 0.25 }}) node[left,color=black] {$ {{- item.var -}} $};
+      \draw ({{ diagram.outer_limit_right }},{{ (loop.index0 / 2) - 0.25 }}) ({{ diagram.outer_limit_right }},{{ (loop.index0 / 2) + 0.25 }}) node[left,color=black] {$ {{- item.var -}} $};
       {% endif %}
       {% endfor %}
       
