@@ -3,7 +3,8 @@ Korpus
 
 Data og værktøjer anvendt i mine undersøgelser af kardinaldyderne i den græske litteratur frem til starten af fjerde århundrede.
 
-Dette repository indeholder tre mapper:
+Dette repository indeholder fire mapper:
+- frekvenstabel: antal forekomster af de eftersøgte termer i litteraturen frem til og med Platon.
 - kollokationer: Kollokationslister for kardinaldyderne og omkringliggende begreber frem til og med Platon.
 - lemmata: Fem forskellige lemmafiler der kan anvendes til korpuslingvistisk analyse af græske tekster. 
 - scripts: En lille gruppe programmer jeg har skrevet og anvendt i forbindelse med undersøgelserne.
