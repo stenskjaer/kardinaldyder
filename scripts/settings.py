@@ -8,11 +8,11 @@
 # output_folder: The folder where the finished .tex-file can be put.
 # output_name: Filename of output .tex (excluding ending).
 # output_addon: If specified, adds the addon between name and ending.
-author = "aischylos"
+author = "antifon-orat"
 corpus_dir = "../../kardinaldyderne/private-korpus/Corpora"
 corpus_subdir = ""
 filename_prefix = ""
-filename_addon = "-total1.txt"
+filename_addon = "-corpus-stripped.txt"
 output_folder = "../../kardinaldyderne/source/figures/dispersions"
 output_name = author
 output_addon = ""
@@ -22,27 +22,27 @@ output_addon = ""
 # exceptions: Søgetermer som skal udelukkes. Formatteres som søgetermer.
 # bar_baseline: Koordinat for diagramlinjens grundlinje.
 terms = [
+    ['ἀνδρει-',
+     '[τκ]?ανδρει, [ηα]νορε, αν?δρ(ει)?οτ',
+     'ανδρεικ'],
+    ['δικαι-',
+     'δικαι',
+     'δικαιο[γπ], δικαις'],
+    ['σοφ-',
+     'σοφ',
+     'σοφι[σζ], σοφοκ, σοφαιν'],
+    ['σωφρ-',
+     'ε?σωφρ, \[σωφρ',
+     'σωφρονι[σζκ]'],
+    ['φρον-',
+     '[πε]?φρον',
+     'ε?φροντι[ζσ], φρονημ, ε?φροντισ[αε]'],
+    ['ὁσι-',
+     'οσι',
+     ''],
     ['εὐσεβ-',
      'ευσεβ',
      ''],
-    ['ὁσι-',
-     'οσι',
-     'οσιρι'],
-    ["φρον-",
-     "φρον, φρο\[ν",
-     "φρονημ, φροντισα,  φροντιζ, φροντισ\{ε"],
-    ['σωφρ-',
-     'σωφρ',
-     ''],
-    ["σοφ-",
-     "σοφ, †σοφ",
-     "σοφοκλ, σοφιστ, σοφιζ, σοφισμ"],
-    ['δικαι-',
-     'δικαι, δ\[ι\]και,  δικα\[ι, δικαιοτερ',
-     ''],
-    ["ἀνδρει-",
-     " ανδρει, ηνορε, αδροτ, ανδρειοτ, ανδροτ, ανορε",
-     " ανδροτυχ"],
 ]
 
 
@@ -51,7 +51,7 @@ terms = [
 # diagram_bars: Antal diagramlinjer
 # granularity: Hvor fint skal den skelne mellem linjernes placering?
 freq_factor = 10000
-width_factor = 10
+width_factor = 8
 granularity = 4
 bar_baseline = 0
 
@@ -60,10 +60,17 @@ diagram_variables = {
     'heavyrulewidth'	: "line width=0.08em",
     'lightrulewidth'	: "line width=0.05em",
     'outer_limit_left'	: -1.5,
-    'outer_limit_right'	: width_factor + 1.5,
-    'outer_limit_bottom': -0.65,
+    'outer_limit_right'	: width_factor + (width_factor * 0.15),
+    'outer_limit_bottom': -0.55,
     'inner_limit_left'	: 0,
     'inner_limit_right'	: width_factor,
     'inner_limit_bottom': 0,
     'author'		: author
     }
+
+
+
+
+
+
+

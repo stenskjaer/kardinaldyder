@@ -5,9 +5,9 @@
 header('Content-Type: text/html;charset=UTF-8');
 
 // Input author and dir
-$corpus_dir = '../../private-korpus/Corpora';
-$corpus_subdir = 'plato/republic';
-$author = 'plato';
+$corpus_dir = '../../kardinaldyderne/private-korpus/Corpora';
+$corpus_subdir = '';
+$author = 'andokides';
 
 // Set dir
 if ($corpus_subdir) {

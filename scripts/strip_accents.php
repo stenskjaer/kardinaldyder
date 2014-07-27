@@ -1,8 +1,8 @@
 ﻿<?php 
 
-$author = "plato";
-$corpus_dir = "../../private-korpus/Corpora";
-$corpus_subdir = "plato/republic";
+$author = "andokides";
+$corpus_dir = "../../kardinaldyderne/private-korpus/Corpora";
+$corpus_subdir = "";
 
 // Set dir
 if ($corpus_subdir) {
