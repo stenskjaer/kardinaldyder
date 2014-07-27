@@ -8,15 +8,19 @@ Dette repository indeholder tre mapper:
 - lemmata: Fem forskellige lemmafiler der kan anvendes til korpuslingvistisk analyse af græske tekster. 
 - scripts: En lille gruppe programmer jeg har skrevet og anvendt i forbindelse med undersøgelserne.
 
-
-Kollokationer
-------------
-
-Kollokationslister for litteraturen frem til Platon (inklusive).
+Frekvenstabel
+-------------
+Tabel med frekvenser for de udvalgte søgetermer samt yderligere nogle termer som ikke er inddraget i bogen. Tabellen indeholder absolutte og relative værdier for samtlige begreber i alle de inddragede forfatterskaber samt nogle få ekstra. For samtlige frekvenser er der beregnet log likelihood værdi for dens afvigelse af gennemsnittet, og på baggrund af denne sandsynligheden for at denne afvigelse af tilfældig.
 
 Filerne er struktureret som CSV-filer (comma seperated values). Det er almindelige tekstfiler som enten kan læses online eller downloades. Vælger man at åbne filerne lokalt, læses de nemmest i en spreadsheet editor som understøtter UTF-8.
 
 Jeg anbefaler at åbne filerne i [Libre Office](http://da.libreoffice.org/), som læser dem problemfrit. Excel kan anvendes, men jeg anbefaler det ikke da det kan give problemer med de græske bogstaver.
+
+
+Kollokationer
+------------
+
+Kollokationslister for litteraturen frem til Platon (inklusive). Når kun meget få og uvæsentlige kollokationer har optrådt for et begreb, er listen ikke tilgængelig.
 
 Listerne er ikke fejlfri. På grund af sammenfald af former der kan tilskrives forskellige græske lemmaer, misforstår softwaren til tider hvilket lemma der forekommer i teksten. Der er sorteret i lemma-listerne (se nedenfor) for at afhælpe de største problemer.
 
@@ -24,7 +28,7 @@ Listerne er ikke fejlfri. På grund af sammenfald af former der kan tilskrives f
 Lemmata
 -------
 
-Fem forskellige, men forbundne lemma-lister.
+Fem forskellige, men forbundne, lemma-lister. De kan være meget praktiske til korpuslingvistisk analyse af oldgræsk litteratur. 
 
 Listerne er baseret på _LSJ_ og kompileret af TLG-softwaren _Diogenes_. 
 Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.net/projects/diogenes/files/diogenes/3.1.6/)
