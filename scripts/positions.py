@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 from jinja2 import Environment, FileSystemLoader
-import settings
+import settings, common
 import os
 import sys
 import argparse
@@ -14,43 +14,9 @@ import logging
 
 
 
-def open_file(filename=False):
-    """
-    Open file and load content into string.
-    
-    Returns the content as decoded string.
-    """
-
-    # Load vars from settings
-    corpus_dir 		= settings.corpus_dir
-    corpus_subdir 	= settings.corpus_subdir
-    author 		= settings.author
-    filename_addon	= settings.filename_addon
-    filename_prefix	= settings.filename_prefix if settings.filename_prefix else author # If filename_prefix is not set, use author
-    
-    # If filename is not set from command line parameters, use settings
-    if not filename:
-        if settings.corpus_subdir:
-            filename = os.path.join(corpus_dir, corpus_subdir, filename_prefix+filename_addon)
-        else:
-            filename = os.path.join(corpus_dir, author, filename_prefix+filename_addon)
-
-    # Try opening the file
-    try:
-        f = codecs.open(filename, 'rb','utf8')
-        s = f.read()
-    except IOError as err:
-        print('Cannot open {}'.format(err))
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-    else:
-        f.close()
-
-        logging.info('String succesfully read')
-        return(s)
 
 def set_filename(filename=False, ending='.txt'):
-    """ Defines the filename of the tex output file and create dir if necessary.
+    """ Defines the filename of the tex output file and creates dir if necessary.
 
     Keyword Arguments:
     filename -- Optional input file.
@@ -144,8 +110,8 @@ def recursive_search(needle, haystack):
     haystack -- 
     """
 
-    pattern = re.compile(needle, re.UNICODE)                        # Use needle and rest until first non-word char
-    results = re.finditer(pattern, haystack)                        # Regex iteration on string
+    pattern = re.compile(needle, re.UNICODE) # Use needle and rest until first non-word char
+    results = re.finditer(pattern, haystack) # Regex iteration on string
 
     return results
 
@@ -208,18 +174,19 @@ def calculations(occurrences, string):
         logging.warn('No occurrences of item, skipping stats for this token.')
     else:
         # word_count
-        pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) # Matches space separated unities excluding {enclosed blocks}
-        word_count = len(re.findall(pattern, string))
+        # Matches space separated unities excluding {enclosed blocks}
+        pattern = re.compile(r'[^\{]\b[^\s]+\b', re.UNICODE) 
+        word_count = len(re.findall (pattern, string))
 
         # List of observed distances between occurrences
         observed_distances = []
         for i, val in enumerate(occurrences):
             if i is 0:
                 observed_distances.append(val[0])
-                logging.debug('Occurrence {0} distance: '.format(i))
+                logging.debug('Occurrence {0} distance: {1}'.format(i))
             else:
                 observed_distances.append(val[0] - occurrences[i-1][0])
-                logging.debug('Occurrence {0} distance: '.format(i))
+                logging.debug('Occurrence {0} distance: {1}'.format(i i+1))
         observed_distances.append(len(string) - occurrences[-1][0])
 
         # Count of relevant occurrences (counting instances of distance)
@@ -228,13 +195,13 @@ def calculations(occurrences, string):
         # Mean (= expected distance)
         expected_distance = len(string) / count
 
-        # Observation mean: The mean of alle observed distances. sum(obs_dist) / count
+        # Observation mean: The mean of all observed distances. 
         # Needed for variance and variation coefficient
         observation_mean = sum(observed_distances) / count
 
         # Variance
         obs_minus_mean = [pow(observation - expected_distance, 2) for observation in observed_distances]
-        variance = sum(obs_minus_mean) / count 
+        variance = sum(obs_minus_mean) / (count -1)
 
         # Standard deviation
         standard_deviation = math.sqrt(variance)
@@ -335,8 +302,8 @@ def render_tex(output_argument,
     Keyword Arguments:
     output_arguments  -- The argument passed from command line.
     diagram_variables -- Variables setting up the diagram, from settings. 
-    bar_variables     -- The data governing the individual bars in diagram.
-    book_variables    -- The data governing the location of book marks.
+    bar_variables     -- Data for the individual bars in diagram.
+    book_variables    -- Data for the location of book marks.
     """
 
     env = Environment(
@@ -436,7 +403,7 @@ def main():
     logging.getLogger(__name__)
 
     # Read the string
-    string = open_file(args.input)
+    string = common.open_file(args.input)
     names, terms, exceptions = separate_terms(settings.terms)
 
     occurrences = create_occurrence_lists(terms, exceptions, string)
