@@ -41,7 +41,7 @@ def open_file(filename=False):
         return(s)
 
 def file_list(question):
-    """Determine whether input is file or directory and load files
+    """Determine whether input is file or directory and load content
     into list.
 
     Keyword Arguments: question -- string that is either a file or
@@ -50,14 +50,18 @@ def file_list(question):
     """
 
     if os.path.isdir(question):
-        directory_list = os.listdir(question)
+        file_list = []
+        for dirname, dirnames, filenames in os.walk(question):
+            for filename in filenames:
+                file_list.append(os.path.join(dirname, filename))
+        return(file_list)
     elif os.path.isfile(question):
-        directory_list = [question]
+        return([question])
     else:
         print('This is odd -- you didn\'t input neither a file nor a dir.'
               'I quit!')
 
-    print(directory_list)
+
 
 def strip_accents(string):
     """Remove accents from string of greek characters.
