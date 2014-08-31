@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import unicodedata
-import argparse
-import os, logging
+import os, logging, sys, argparse, codecs
+import settings
 
 def open_file(filename=False):
     """
