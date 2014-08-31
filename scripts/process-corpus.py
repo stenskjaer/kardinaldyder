@@ -19,7 +19,9 @@ def open_file(filename, encoding='utf8'):
     except IOError as err:
         print('Cannot open {}'.format(err))
     except:
-        print("Unexpected error:", sys.exc_info()[0])
+        print('Unexpected error:', sys.exc_info()[0])
+        print('Did you remember to add the -betacode argument '
+              'if your input is in beta-code format?')
     else:
         f.close()
 
@@ -161,39 +163,47 @@ def main():
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Pre-process text files for ')
+        description='Pre-process text files for corpus processing. '
+        'The output is suited for the positions.py script.')
     parser.add_argument('input',
                         help='The folder or file to be parsed.')
     parser.add_argument('output', nargs='?',
-                        help='The folder where the processed corpus files will be stored. If none is given, the file will be placed in the current working directory.',
+                        help='The folder where the processed corpus '
+                        'files will be stored. If none is given, the '
+                        'file will be placed in the current working '
+                        'directory.',
                         default=os.getcwd())
     parser.add_argument('--betacode', '-b',
-                        help='Is the file in beta-code? In that case it should be converted. Requires tlgu. Default = False',
+                        help='Is the file in beta-code? In that case '
+                        'it should be converted. Requires tlgu. '
+                        'Default = False',
                         action='store_true')
     parser.add_argument('--print', '-p',
-                        help='Output the result to shell? Default = False.',
+                        help='Output the result to shell? '
+                        'Default = False.',
                         action='store_true')
-    parser.add_argument('--acccents', '-a',
+    parser.add_argument('--accents', '-a',
                         help='Strip accents. Default = False.',
                         action='store_true')
     parser.add_argument('--whitespace', '-w',
-                        help='Remove excessive whitespace. Default = False.',
+                        help='Remove excessive whitespace. '
+                        'Default = False.',
                         action='store_true')
-    parser.add_argument('--linebreaks', '-i',
+    parser.add_argument('--linebreaks', '-l',
                         help='Remove all linebreaks. Default = False.',
                         action='store_true')
     parser.add_argument('--merge', '-m',
-                        help='Merge the files into one corpus-file. Default = False.',
+                        help='Merge the files into one corpus-file. '
+                        'If this option is used, each work has '
+                        '"[<number>] {work}" prepended for later '
+                        'analysis. Default = False.', 
                         action='store_true')
-    parser.add_argument('--log', '-l',
-                        help='Set the log level (output to shell). Default = INFO.',
-                        default='INFO')
 
     # Parse command line arguments
     args = parser.parse_args()
 
     # Process the file(s)
-    process_files(args)
+    print(process_files(args))
 
 if __name__ == "__main__":
     main()
