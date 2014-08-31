@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import unicodedata
-import os, logging, sys, argparse, codecs
+import os, sys, argparse, codecs, subprocess, shutil
 import settings
 
 def open_file(filename=False):
@@ -37,7 +37,6 @@ def open_file(filename=False):
     else:
         f.close()
 
-        logging.info('String succesfully read')
         return(s)
 
 def file_list(question):
@@ -78,7 +77,7 @@ def strip_accents(string):
 def main():
     """Main function. 
 
-    Initiate argument parser, start logging and run appropriate
+    Initiate argument parser and run appropriate
     functions.
     """
 
@@ -115,18 +114,8 @@ def main():
     # Parse command line arguments
     args = parser.parse_args()
 
-    # Set log level and initiate logging module
-    loglevel = args.log
-    logging.basicConfig(level=getattr(logging, loglevel.upper()),
-                        filename='process-corpus.log',
-                        format='%(asctime)s %(message)s')
-    logging.getLogger(__name__)
-    logging.info('Starting script.')
-
-    print(file_list(args.input))
-
-
-    logging.info('Closing script.')
+    # Process the file(s)
+    process_files(args)
 
 if __name__ == "__main__":
     main()
