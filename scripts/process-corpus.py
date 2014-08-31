@@ -3,6 +3,7 @@
 import unicodedata
 import os, sys, argparse, codecs, subprocess, shutil
 import settings
+import re
 
 def open_file(filename, encoding='utf8'):
     """
@@ -109,10 +110,47 @@ def strip_accents(string):
 
     """
 
-    return ''.join(c for c in unicodedata.normalize('NFD', s)
+    return ''.join(c for c in unicodedata.normalize('NFD', string)
                    if unicodedata.category(c) != 'Mn')    
 
+def process_files(args):
+    """ Run the files and apply the choosen changes. Return list with
+    the processed content of the files. Either as one or several items
+    dependant on the merge-option.
 
+    Keyword Arguments:
+    file_list -- list of files from file_list function
+    args      -- command line arguments
+    """
+
+
+    # Iterate over list of content from file(s), output to
+    # processed_content
+    processed_content = []
+    for item in content_of_files(args.input, args.betacode):
+
+        # Run the arguments
+        if args.accents:
+            item = strip_accents(item)
+
+        if args.linebreaks:
+            item = re.sub(r'-?\n', '', item)
+
+        if args.whitespace:
+            item = re.sub('[ \t]+', ' ', item)
+
+        processed_content.append(item)
+
+    # Prepare to return, either merged or in list
+    if args.merge:
+        output = ""
+        for item in processed_content:
+            output += '[{0}] {{work}} {1}'.format(
+                processed_content.index(item), item
+            )
+        return(output)
+    else:
+        return(processed_content)
 
 def main():
     """Main function. 
