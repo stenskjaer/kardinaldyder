@@ -80,7 +80,7 @@ def beta_code_convert(file):
 
     # Check if tlgu is on system and convert
     if subprocess.call(['type', 'tlgu']) is 0:
-        print('Found tlgu in PATH... Processing')
+        print('Found tlgu in PATH... converting')
         subprocess.call(['tlgu', '-W', file, '%soutput' %tempdir_name])
         print('tlgu done with {0}'.format(file))
 
@@ -125,6 +125,7 @@ def process_files(args):
     args      -- command line arguments
     """
 
+    print('Start processing the files')
 
     # Iterate over list of content from file(s), output to
     # processed_content
@@ -143,7 +144,10 @@ def process_files(args):
 
         processed_content.append(item)
 
-    # Prepare to return, either merged or in list
+    print('File processing done.')
+    
+    # Prepare to return, either merged or in list.
+    # If merged, prepend the [number] {work} text to each.
     if args.merge:
         output = ""
         for item in processed_content:
