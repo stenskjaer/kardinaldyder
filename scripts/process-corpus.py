@@ -158,6 +158,44 @@ def process_files(args):
     else:
         return(processed_content)
 
+def create_output(content, args):
+    """Determine output location, write the files and (if choosen) print
+    output to shelle to.
+
+    Keyword Arguments:
+    args         -- the command line arguments specifying print and
+    where to put the files.
+    content -- the content to be printed to files.
+
+    """
+
+    # Set output dir: either cmd-line argument or current working dir.
+    if args.output:
+        output_directory = os.path.abspath(args.output)
+    else:
+        output_directory = os.getcwd()
+
+    # If content is a list, there are several works by the author, and
+    # the merge option is not chosen, so we iterate the list and
+    # output a file for each item, else just output one file.
+    # If the print option is set, print to shell too.
+    if type(content) is list:
+        for index, item in enumerate(content):
+            output_file = open(os.path.join(output_directory,
+                                            'output%s.txt' %index), 'w+')
+            output_file.write(item)
+            print('Output work {0} to {1}'.format(index, output_directory))
+            if args.print:
+                print('Work {}'.format(index))
+                print(item)
+    else:
+        output_file = open(os.path.join(output_directory,
+                                        'output.txt'), 'w+')
+        output_file.write(content)
+        print('Output work(s) merged to {}/output.txt'.format(output_directory))
+        if args.print:
+            print(content)
+
 def main():
     """Main function. 
 
@@ -207,7 +245,7 @@ def main():
     args = parser.parse_args()
 
     # Process the file(s)
-    print(process_files(args))
+    create_output(process_files(args), args)
 
 if __name__ == "__main__":
     main()
