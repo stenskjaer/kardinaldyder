@@ -78,7 +78,8 @@ def beta_code_convert(file):
     if not os.path.exists(tempdir_name):
         os.makedirs(tempdir_name)
 
-    # Check if tlgu is on system and convert
+    # Check if tlgu is on system and convert.
+    # Search for tlgu in current working dir 
     if subprocess.call(['type', 'tlgu']) is 0:
         print('Found tlgu in PATH... converting')
         subprocess.call(['tlgu', '-W', file, '%soutput' %tempdir_name])
@@ -174,6 +175,10 @@ def create_output(content, args):
         output_directory = os.path.abspath(args.output)
     else:
         output_directory = os.getcwd()
+
+    # If output dir does not exist, create it.
+    if not os.path.isdir(output_directory):
+        os.makedirs(output_directory)
 
     # If content is a list, there are several works by the author, and
     # the merge option is not chosen, so we iterate the list and
