@@ -9,8 +9,8 @@ Dette repository indeholder fire mapper:
 - lemmata: Fem forskellige lemmafiler der kan anvendes til korpuslingvistisk analyse af græske tekster. 
 - scripts: En lille gruppe programmer jeg har skrevet og anvendt i forbindelse med undersøgelserne.
 
-Frekvenstabel
--------------
+## Frekvenstabel
+
 Tabel med frekvenser for de udvalgte søgetermer samt yderligere nogle termer som ikke er inddraget i bogen. Tabellen indeholder absolutte og relative værdier for samtlige begreber i alle de inddragede forfatterskaber samt nogle få ekstra. For samtlige frekvenser er der beregnet log likelihood værdi for dens afvigelse af gennemsnittet, og på baggrund af denne sandsynligheden for at denne afvigelse af tilfældig.
 
 Filerne er struktureret som CSV-filer (comma seperated values). Det er almindelige tekstfiler som enten kan læses online eller downloades. Vælger man at åbne filerne lokalt, læses de nemmest i en spreadsheet editor som understøtter UTF-8.
@@ -18,16 +18,16 @@ Filerne er struktureret som CSV-filer (comma seperated values). Det er almindeli
 Jeg anbefaler at åbne filerne i [Libre Office](http://da.libreoffice.org/), som læser dem problemfrit. Excel kan anvendes, men jeg anbefaler det ikke da det kan give problemer med de græske bogstaver.
 
 
-Kollokationer
-------------
+## Kollokationer
+
 
 Kollokationslister for litteraturen frem til Platon (inklusive). Når kun meget få og uvæsentlige kollokationer har optrådt for et begreb, er listen ikke tilgængelig.
 
 Listerne er ikke fejlfri. På grund af sammenfald af former der kan tilskrives forskellige græske lemmaer, misforstår softwaren til tider hvilket lemma der forekommer i teksten. Der er sorteret i lemma-listerne (se nedenfor) for at afhælpe de største problemer.
 
 
-Lemmata
--------
+## Lemmata
+
 
 Fem forskellige, men forbundne, lemma-lister. De kan være meget praktiske til korpuslingvistisk analyse af oldgræsk litteratur. 
 
@@ -43,9 +43,7 @@ Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.ne
 
 `concat_extended_lemmata.txt` svarer til ovenstående fil, men hvor de trunkerede lemmata inkluderer de tre forbundne former som også indgår i ordgrundlaget (φρον, οσι, ευσεβ).
 
-
-Programmer
--------
+## Programmer
 
 To små programmer beregnet på manipulation og beregning af tekster til
 brug i korpusundersøgelser. Begge programmer er skrevet i `Python` og
@@ -67,7 +65,8 @@ anvendelse af en terminal. Se eventuelt
 og
 [her](https://mattwilcox.net/archives/a-very-basic-introduction-to-the-command-line-terminal-and-shell/).
 
-## `preprocess.py`
+### `preprocess.py`
+
 Programmet skal forberede tekstfiler til yderligere korpuslingvistisk
 analyse. Det indeholder følgende muligheder:
 * Fjernelse af overflødig luft (mellemrum, tabulator o.l.).
@@ -86,7 +85,8 @@ Konverteringen opdeler teksterne efter værker. En konvertering af
 Homer vil eksempelvis resultere to filer, én for henholdsvis *Iliaden*
 og *Odysseen*. I TLG-databasen og på hjemmesiden
 (http://stephanus.tlg.uci.edu/) foreligger lister over hvilke værker
-et forfatterskab omfatter.
+et forfatterskab omfatter. Den ligger også herinde under navnet
+`doccan1_u.txt`.
 
 Når man konverterer en beta-code fil eller processerer en mappe med
 flere Unicode-filer, er det muligt at vælge hvorvidt de færdige filer skal
@@ -98,7 +98,12 @@ enten befinde sig i samme mappe som `preprocess.py`-skriptet eller
 et andet sted hvor systemet kan finde det (se mere på dette
 [link](http://www.cyberciti.biz/faq/unix-linux-adding-path/)). 
 
-### Eksempler
+Efter de forskellige parametre for processeringen følger det eneste
+obligatoriske argument hvor det angives hvor den fil eller mappe som
+skal behandles befinder sig. Endelig kan man tilføje hvor resultatet
+skal gemmes.
+
+#### Eksempler
 
 Følgende eksempler antager at vi befinder os i samme mappe som
 programmet. 
@@ -130,9 +135,9 @@ den).
 Magen til ovenstående, men fjerner også alle accenter. Denne kommando
 har jeg anvendt til at forberede filer til behandling med programmet `positions.py`
 
-## `positions.py`
+### `positions.py`
 
-## Historisk note
+### Historisk note
 
 De to programmer er reviderede versioner af mine
 oprindelige programmer. I første omgang skrev jeg 4-5 separate
@@ -141,6 +146,8 @@ højere grad end de nuværende kun tilfredsstillende til mit specielle
 formål. Jeg har derfor fjernet dem til fordel for de to
 python-programmer som udfører samme funktioner men er skrevet med en
 vis fleksibilitet for øje.
+
+De gamle `php`-programmer er gemt som reference.
 
 - `compile_corpus.php`: Samler filer for en angiven forfatter i specificeret mappe og samler alle korpusfiler med et trecifret nummer inden .txt-suffikset til én fil. Det erstatter også alle gravis-accenter med acut'er og transponerer hele filen til minuskler for at optimere de statistiske resultater og foretager mindre oprydning i teksten (fjerner linjeskift og overflødige mellemrum)
 Konvertering af TLG-filer fra beta kode til unicode er udført med [tlgu](http://tlgu.carmen.gr/tlgu.1.html).
