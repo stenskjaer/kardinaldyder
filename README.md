@@ -44,13 +44,103 @@ Filen `beta_lemmata.txt` er tilgængelig på [SourceForge](http://sourceforge.ne
 `concat_extended_lemmata.txt` svarer til ovenstående fil, men hvor de trunkerede lemmata inkluderer de tre forbundne former som også indgår i ordgrundlaget (φρον, οσι, ευσεβ).
 
 
-Scripts
+Programmer
 -------
 
-En lille samling af forskellige programmer anvendt til tekstmanipulation, beregninger og produktion af diagrammer i forbindelser med ordundersøgelserne.
+To små programmer beregnet på manipulation og beregning af tekster til
+brug i korpusundersøgelser. Begge programmer er skrevet i `Python` og
+kræver version 3.0 eller derover. De er ikke testet grundigt, men
+forventes at virke som forventet på Unix-systemer (Max OSX, Linux og
+lignende). De er ikke testet på Windows endnu.
 
-Der er simple, rodede og uskønne skripts som virkelig kunne trænge til en gennemarbejdning.
-De vigtigste i undersøgelserne er:
+Nedenfor beskriver jeg kort hvad programmer kan og hvordan man bruger
+dem. De er beregnet til at køre fra en terminal-emulator (BASH, shell,
+zsh, Terminal og lignende). Med argumentet `-h` eller `--help` kan man
+også se en kort vejledning til brug af programmerne og hvilke
+kommandoer der er indbygget (eksempelvis
+`preprocess.py --help`). Programkoden er også relativt
+veldokumenteret, så der kan man også finde en del mere info.
+
+Det er forudsat at man har en smule erfaring med navigation og
+anvendelse af en terminal. Se eventuelt
+[her](http://www.dummies.com/how-to/content/how-to-use-basic-unix-commands-to-work-in-terminal.html)
+og
+[her](https://mattwilcox.net/archives/a-very-basic-introduction-to-the-command-line-terminal-and-shell/).
+
+## `preprocess.py`
+Programmet skal forberede tekstfiler til yderligere korpuslingvistisk
+analyse. Det indeholder følgende muligheder:
+* Fjernelse af overflødig luft (mellemrum, tabulator o.l.).
+* Fjernelse af accenter i fx græsk eller fransk tekst.
+* Fjernelse af linjeskift.
+* Konvertering af filer i beta-code format til Unicode UTF-8 (kræver
+programmet TLGU, se nedenfor).
+
+Man kan enten processere filer i en mappe eller en enkelt fil som
+allerede er i Unicode-format. Alternativt kan man konvertere én
+beta-code formateret (eksporteret fra TLG) fil til Unicode som en del
+af processen. En fil eksporteret fra TLG databasen svarer til ét
+forfatterskab. 
+
+Konverteringen opdeler teksterne efter værker. En konvertering af
+Homer vil eksempelvis resultere to filer, én for henholdsvis *Iliaden*
+og *Odysseen*. I TLG-databasen og på hjemmesiden
+(http://stephanus.tlg.uci.edu/) foreligger lister over hvilke værker
+et forfatterskab omfatter.
+
+Når man konverterer en beta-code fil eller processerer en mappe med
+flere Unicode-filer, er det muligt at vælge hvorvidt de færdige filer skal
+samles til én fil eller gemmes som separate filer.
+
+Konverteringen fra beta-code til Unicode kræver at programmet TLGU er
+installeret. Det kan downloades på http://tlgu.carmen.gr/ og skal
+enten befinde sig i samme mappe som `preprocess.py`-skriptet eller
+et andet sted hvor systemet kan finde det (se mere på dette
+[link](http://www.cyberciti.biz/faq/unix-linux-adding-path/)). 
+
+### Eksempler
+
+Følgende eksempler antager at vi befinder os i samme mappe som
+programmet. 
+
+```
+./preprocess.py --linebreaks --whitespace homer-unicode.txt
+```
+
+Fjern linjeskift og mellemrum i én fil som hedder `homer-unicode.txt`
+og befinder sig i samme mappe som programmet. Resultatet bliver
+spyttet ud som én fil med titlen `output.txt`. I stedet for
+`--linebreak` og `--whitespace` kan de kortere version `-l` og `-w`
+også bruges og må gerne skrives sammen til `-lw`
+
+```
+./preprocess.py -bwlm ~/Documents/korpus/raw/homer.txt ~/Documents/korpus/processed
+```
+Et lidt mere kompleks eksempel. Konverterer fra beta-code til Unicode
+(`-b`), fjerner overflødige mellemrum (`-w`) og alle linjeskif (`-l`)
+og samler endelig alle de processerede filer til én samlet fil.
+Programmet vil finde den fil der skal konverteres i
+`~/Documents/korpus/raw/homer.txt` og putte den færdige fil i
+`~/Documents/korpus/processed` (hvis mappen ikke findes, oprettes
+den).
+
+```
+./preprocess.py -bwlma ~/Documents/korpus/raw/homer.txt ~/Documents/korpus/processed
+```
+Magen til ovenstående, men fjerner også alle accenter. Denne kommando
+har jeg anvendt til at forberede filer til behandling med programmet `positions.py`
+
+## `positions.py`
+
+## Historisk note
+
+De to programmer er reviderede versioner af mine
+oprindelige programmer. I første omgang skrev jeg 4-5 separate
+funktion i `php`. De var dårligt dokumenteret, og fungerede i endnu
+højere grad end de nuværende kun tilfredsstillende til mit specielle
+formål. Jeg har derfor fjernet dem til fordel for de to
+python-programmer som udfører samme funktioner men er skrevet med en
+vis fleksibilitet for øje.
 
 - `compile_corpus.php`: Samler filer for en angiven forfatter i specificeret mappe og samler alle korpusfiler med et trecifret nummer inden .txt-suffikset til én fil. Det erstatter også alle gravis-accenter med acut'er og transponerer hele filen til minuskler for at optimere de statistiske resultater og foretager mindre oprydning i teksten (fjerner linjeskift og overflødige mellemrum)
 Konvertering af TLG-filer fra beta kode til unicode er udført med [tlgu](http://tlgu.carmen.gr/tlgu.1.html).
