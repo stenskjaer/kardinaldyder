@@ -41,7 +41,7 @@ def content_of_files(question, beta_conversion=False):
     content_list = []
 
     # If its a dir, I assume it is unicode (folders with beta-encoding
-    # are not acepted). Intended to be a folder with output of the
+    # are not accepted). Intended to be a folder with output of the
     # tlgu script
     if os.path.isdir(question):
         for dirname, dirnames, filenames in os.walk(question):
@@ -160,7 +160,7 @@ def process_files(args):
         return(processed_content)
 
 def create_output(content, args):
-    """Determine output location, write the files and (if choosen) print
+    """Determine output location, write the files and (if chosen) print
     output to shelle to.
 
     Keyword Arguments:
