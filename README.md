@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/20943/stenskjaer/kardinaldyder.svg)](https://zenodo.org/badge/latestdoi/20943/stenskjaer/kardinaldyder)
+
 Korpus
 ======
 
