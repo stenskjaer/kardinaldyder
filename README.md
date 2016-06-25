@@ -1,11 +1,11 @@
 [![DOI](https://zenodo.org/badge/20943/stenskjaer/kardinaldyder.svg)](https://zenodo.org/badge/latestdoi/20943/stenskjaer/kardinaldyder)
 
-Korpus
-======
+# Data og scripts til *Den samlede dyd: Kardinaldyderne i arkaisk og klassisk tid*
 
 Data og værktøjer anvendt i mine undersøgelser af kardinaldyderne i den græske litteratur frem til starten af fjerde århundrede.
+Undersøgelsen er publiceret i bogen [*Den samlede dyd: Kardinaldyderne i arkaisk og klassisk tid*](http://www.mtp.hum.ku.dk/details.asp?eln=203749), København: Museum Tusculanum. 2016.
 
-Dette repository indeholder fire mapper:
+Dette repositorium indeholder fire mapper:
 - frekvenstabel: antal forekomster af de eftersøgte termer i litteraturen frem til og med Platon.
 - kollokationer: Kollokationslister for kardinaldyderne og omkringliggende begreber frem til og med Platon.
 - lemmata: Fem forskellige lemmafiler der kan anvendes til korpuslingvistisk analyse af græske tekster. 
