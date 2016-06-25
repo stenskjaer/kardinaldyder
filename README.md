@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/20943/stenskjaer/kardinaldyder.svg)](https://zenodo.org/badge/latestdoi/20943/stenskjaer/kardinaldyder)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.56385.svg)](http://dx.doi.org/10.5281/zenodo.56385)
 
 # Data og scripts til *Den samlede dyd: Kardinaldyderne i arkaisk og klassisk tid*
 
